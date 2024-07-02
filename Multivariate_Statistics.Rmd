@@ -88,9 +88,9 @@ raw_bp <- plot_sample_boxplots(mode_test,
                                fill_by = "Factor")
 # PCA of raw data
 raw_pca <- plot_pca(mode_test,
-                       center = TRUE,
-                       shape = "Factor",
-                       color = "Factor")
+                    center = TRUE,
+                    shape = "Factor",
+                    color = "Factor")
 # Package to plots visualization in a same windows
 #if (!requireNamespace("devtools", quietly = TRUE)) {
 #  install.packages("devtools")
@@ -345,7 +345,7 @@ Preparing data and transposing feature table.
 # Transposing feature height table
 transp_table  <- t(glog_set)
 # Centering and Scaling features
-ei_pca <- prcomp(transp_table, center = TRUE, scale. = FALSE)
+ei_pca <- prcomp(transp_table, center = TRUE, scale. = TRUE)
 
 ```
 
