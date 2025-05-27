@@ -680,3 +680,167 @@ INFO [2025-05-27 18:15:43] Starting homoscedasticity tests.
 INFO [2025-05-27 18:15:43] Homoscedasticity tests performed.
 INFO [2025-05-27 18:15:44] Starting homoscedasticity tests.
 INFO [2025-05-27 18:15:44] Homoscedasticity tests performed.
+INFO [2025-05-27 18:24:09] Starting logging
+INFO [2025-05-27 18:24:10] Corner detected correctly at row 11, column I
+INFO [2025-05-27 18:24:10] 
+Extracting sample information from rows 1 to 11 and columns J to DE
+INFO [2025-05-27 18:24:10] Replacing spaces in sample information column names with underscores (_)
+INFO [2025-05-27 18:24:10] Naming the last column of sample information "Datafile"
+INFO [2025-05-27 18:24:10] 
+Extracting feature information from rows 12 to 647 and columns A to I
+INFO [2025-05-27 18:24:10] Creating Split column from Column, Ion_Mode
+INFO [2025-05-27 18:24:10] Feature_ID column not found, creating feature IDs
+INFO [2025-05-27 18:24:10] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:24:10] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:24:10] Creating feature IDs from Split, m/z and retention time
+INFO [2025-05-27 18:24:10] Replacing dots (.) in feature information column names with underscores (_)
+INFO [2025-05-27 18:24:10] 
+Extracting feature abundances from rows 12 to 647 and columns J to DE
+INFO [2025-05-27 18:24:10] 
+Checking sample information
+INFO [2025-05-27 18:24:10] Checking that feature abundances only contain numeric values
+INFO [2025-05-27 18:24:10] 
+Checking feature information
+INFO [2025-05-27 18:24:10] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-05-27 18:24:10] Checking that m/z and retention time values are reasonable
+INFO [2025-05-27 18:24:10] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:24:10] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:24:10] 
+Checking feature information
+INFO [2025-05-27 18:24:10] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-05-27 18:24:10] Checking that feature abundances only contain numeric values
+INFO [2025-05-27 18:24:10] Setting row and column names of exprs based on feature and pheno data
+INFO [2025-05-27 18:24:13] 
+0% of features flagged for low detection rate
+INFO [2025-05-27 18:24:13] 
+Starting drift correction at 2025-05-27 18:24:13.284878
+INFO [2025-05-27 18:24:14] Drift correction performed at 2025-05-27 18:24:14.643438
+INFO [2025-05-27 18:24:15] Inspecting drift correction results 2025-05-27 18:24:15.292822
+INFO [2025-05-27 18:24:16] Drift correction results inspected at 2025-05-27 18:24:16.459848
+INFO [2025-05-27 18:24:16] 
+Drift correction results inspected, report:
+Drift_corrected: 100%
+INFO [2025-05-27 18:24:16] 
+0% of features flagged for low quality
+INFO [2025-05-27 18:24:18] 
+0% of features flagged as contaminants
+INFO [2025-05-27 18:24:20] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:24:20] 
+Starting feature clustering at 2025-05-27 18:24:20.297067
+INFO [2025-05-27 18:24:20] Finding connections between features in RP_NEG
+INFO [2025-05-27 18:24:31] Found 43 connections in RP_NEG
+INFO [2025-05-27 18:24:31] Found 43 connections
+INFO [2025-05-27 18:24:31] Found 26 clusters of 2 or more features, clustering finished at 2025-05-27 18:24:31.951083
+INFO [2025-05-27 18:24:32] Clusters compressed, left with 608 features
+INFO [2025-05-27 18:24:33] 
+Starting random forest imputation at 2025-05-27 18:24:33.762466
+INFO [2025-05-27 18:24:45] Out-of-bag error in random forest imputation: 0.022
+INFO [2025-05-27 18:24:45] Random forest imputation finished at 2025-05-27 18:24:45.840317 
+
+INFO [2025-05-27 18:24:45] 
+Starting random forest imputation at 2025-05-27 18:24:45.844178
+INFO [2025-05-27 18:24:45] Out-of-bag error in random forest imputation: 0
+INFO [2025-05-27 18:24:45] Random forest imputation finished at 2025-05-27 18:24:45.874324 
+
+INFO [2025-05-27 18:24:47] Starting PQN normalization
+INFO [2025-05-27 18:24:47] Using median of qc samples as reference spectrum
+INFO [2025-05-27 18:24:54] Starting homoscedasticity tests.
+INFO [2025-05-27 18:24:57] Homoscedasticity tests performed.
+INFO [2025-05-27 18:24:57] Starting to compute fold changes.
+INFO [2025-05-27 18:24:57] Fold changes computed.
+INFO [2025-05-27 18:24:57] Starting t-tests for Light & Shade
+INFO [2025-05-27 18:24:59] t-tests performed.
+INFO [2025-05-27 18:24:59] Starting homoscedasticity tests.
+INFO [2025-05-27 18:25:03] Homoscedasticity tests performed.
+INFO [2025-05-27 18:25:03] Starting to compute fold changes.
+INFO [2025-05-27 18:25:03] Fold changes computed.
+INFO [2025-05-27 18:25:03] Starting t-tests for Light & Shade
+INFO [2025-05-27 18:25:04] t-tests performed.
+INFO [2025-05-27 18:25:04] Starting t-tests for Light & Shade
+INFO [2025-05-27 18:25:05] t-tests performed.
+INFO [2025-05-27 18:25:05] Starting homoscedasticity tests.
+INFO [2025-05-27 18:25:06] Homoscedasticity tests performed.
+INFO [2025-05-27 18:25:07] Starting homoscedasticity tests.
+INFO [2025-05-27 18:25:07] Homoscedasticity tests performed.
+INFO [2025-05-27 18:26:25] Starting logging
+INFO [2025-05-27 18:26:25] Corner detected correctly at row 11, column I
+INFO [2025-05-27 18:26:25] 
+Extracting sample information from rows 1 to 11 and columns J to DE
+INFO [2025-05-27 18:26:25] Replacing spaces in sample information column names with underscores (_)
+INFO [2025-05-27 18:26:25] Naming the last column of sample information "Datafile"
+INFO [2025-05-27 18:26:25] 
+Extracting feature information from rows 12 to 647 and columns A to I
+INFO [2025-05-27 18:26:25] Creating Split column from Column, Ion_Mode
+INFO [2025-05-27 18:26:25] Feature_ID column not found, creating feature IDs
+INFO [2025-05-27 18:26:25] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:26:25] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:26:25] Creating feature IDs from Split, m/z and retention time
+INFO [2025-05-27 18:26:25] Replacing dots (.) in feature information column names with underscores (_)
+INFO [2025-05-27 18:26:25] 
+Extracting feature abundances from rows 12 to 647 and columns J to DE
+INFO [2025-05-27 18:26:25] 
+Checking sample information
+INFO [2025-05-27 18:26:25] Checking that feature abundances only contain numeric values
+INFO [2025-05-27 18:26:26] 
+Checking feature information
+INFO [2025-05-27 18:26:26] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-05-27 18:26:26] Checking that m/z and retention time values are reasonable
+INFO [2025-05-27 18:26:26] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:26:26] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:26:26] 
+Checking feature information
+INFO [2025-05-27 18:26:26] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-05-27 18:26:26] Checking that feature abundances only contain numeric values
+INFO [2025-05-27 18:26:26] Setting row and column names of exprs based on feature and pheno data
+INFO [2025-05-27 18:26:28] 
+0% of features flagged for low detection rate
+INFO [2025-05-27 18:26:28] 
+Starting drift correction at 2025-05-27 18:26:28.777579
+INFO [2025-05-27 18:26:30] Drift correction performed at 2025-05-27 18:26:30.103173
+INFO [2025-05-27 18:26:30] Inspecting drift correction results 2025-05-27 18:26:30.733321
+INFO [2025-05-27 18:26:31] Drift correction results inspected at 2025-05-27 18:26:31.874774
+INFO [2025-05-27 18:26:31] 
+Drift correction results inspected, report:
+Drift_corrected: 100%
+INFO [2025-05-27 18:26:31] 
+0% of features flagged for low quality
+INFO [2025-05-27 18:26:33] 
+0% of features flagged as contaminants
+INFO [2025-05-27 18:26:35] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-05-27 18:26:35] 
+Starting feature clustering at 2025-05-27 18:26:35.774809
+INFO [2025-05-27 18:26:35] Finding connections between features in RP_NEG
+INFO [2025-05-27 18:26:47] Found 43 connections in RP_NEG
+INFO [2025-05-27 18:26:47] Found 43 connections
+INFO [2025-05-27 18:26:47] Found 26 clusters of 2 or more features, clustering finished at 2025-05-27 18:26:47.471474
+INFO [2025-05-27 18:26:47] Clusters compressed, left with 608 features
+INFO [2025-05-27 18:26:49] 
+Starting random forest imputation at 2025-05-27 18:26:49.279135
+INFO [2025-05-27 18:27:01] Out-of-bag error in random forest imputation: 0.022
+INFO [2025-05-27 18:27:01] Random forest imputation finished at 2025-05-27 18:27:01.316258 
+
+INFO [2025-05-27 18:27:01] 
+Starting random forest imputation at 2025-05-27 18:27:01.319974
+INFO [2025-05-27 18:27:01] Out-of-bag error in random forest imputation: 0
+INFO [2025-05-27 18:27:01] Random forest imputation finished at 2025-05-27 18:27:01.342884 
+
+INFO [2025-05-27 18:27:02] Starting PQN normalization
+INFO [2025-05-27 18:27:02] Using median of qc samples as reference spectrum
+INFO [2025-05-27 18:27:09] Starting homoscedasticity tests.
+INFO [2025-05-27 18:27:13] Homoscedasticity tests performed.
+INFO [2025-05-27 18:27:13] Starting to compute fold changes.
+INFO [2025-05-27 18:27:13] Fold changes computed.
+INFO [2025-05-27 18:27:13] Starting t-tests for Light & Shade
+INFO [2025-05-27 18:27:14] t-tests performed.
+INFO [2025-05-27 18:27:15] Starting homoscedasticity tests.
+INFO [2025-05-27 18:27:18] Homoscedasticity tests performed.
+INFO [2025-05-27 18:27:18] Starting to compute fold changes.
+INFO [2025-05-27 18:27:19] Fold changes computed.
+INFO [2025-05-27 18:27:19] Starting t-tests for Light & Shade
+INFO [2025-05-27 18:27:20] t-tests performed.
+INFO [2025-05-27 18:27:20] Starting t-tests for Light & Shade
+INFO [2025-05-27 18:27:20] t-tests performed.
+INFO [2025-05-27 18:27:21] Starting homoscedasticity tests.
+INFO [2025-05-27 18:27:21] Homoscedasticity tests performed.
+INFO [2025-05-27 18:27:22] Starting homoscedasticity tests.
+INFO [2025-05-27 18:27:22] Homoscedasticity tests performed.
