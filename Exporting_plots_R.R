@@ -354,6 +354,27 @@ ggsave(filename = "../Result/notame_results/Figuras/figure_union_2.pdf", plot = 
 ggsave(filename = "../Result/notame_results/Figuras/figure_union_2.png", plot = figure_uniontwo,
        width = 175, height = 150, units = "mm", dpi = 300, scale = 2.5)
 
+#---------------------------------------------------------------------------------
+
+#Factorial plots
+library(cowplot)
+
+figure_union_3 <- arrangeGrob(plot_chakra,
+                              plot_age,
+                              plot_interaction_ttest,
+                              layout_matrix = rbind(c(1, 2),
+                                                    c(3, 3)))
+# Adding label to the figures
+figure_unionthree <- ggpubr::as_ggplot(figure_union_3) +
+  draw_plot_label(label = LETTERS[1:3],
+                  x = c(0, 0.50, 0.01),
+                  y = c(1, 1, .5))
+# Exporting (*.pdf) file
+ggsave(filename = "../Result/Factorial_results/Figuras/PDF/figure_union_3.pdf", plot = figure_unionthree,
+       width = 175, height = 150, units = "mm", dpi = 300, scale = 2.5)
+# Exporting (*.png) file
+ggsave(filename = "../Result/Factorial_results/Figuras/PNG/figure_union_3.png", plot = figure_unionthree,
+       width = 175, height = 150, units = "mm", dpi = 300, scale = 2.5)
 
 
 
