@@ -25,7 +25,7 @@ The code accomplishes the following:
 
 The final figure integrates all visualizations into a single multi-panel layout. Each subplot is labeled (A–H) and grouped by ionization mode.
 
-(Result/venn_results/Figuras/PNG/figure_union.png))
+![Final Composite Figure](Result/venn_results/Figuras/PNG/figure_union.png)
 
 ## Dependencies
 - R (>= 4.0.0)
