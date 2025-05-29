@@ -59,7 +59,7 @@ list_15_sm <- df %>% filter(Iones == "15_sm") %>% pull(Precursor_round)
 venn1 <- venn.diagram(
   x = list("5_m" = unique(list_5_m), "5_sm" = unique(list_5_sm)),
   filename = NULL,
-  fill = c("#0000FF", "#00BFFF"),
+  fill = c("#67000D", "#FB6A4A"),
   alpha = 0.5, cex = 1.5, fontface = "bold",
   cat.cex = 1.2, cat.pos = c(-20, 20),
   main = "Venn_Poss: 5_m vs 5_sm"
@@ -72,15 +72,15 @@ grid.newpage(); grid.draw(venn1)
 
 ``` r
 # Save plot
-#ggsave("../Result/venn_results/Figuras/PDF/venn1_p.pdf", plot = venn1, width = 5, height = 4, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/venn1_p.png", plot = venn1, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/venn1_p.pdf", plot = venn1, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/venn1_p.png", plot = venn1, width = 5, height = 4, units = "in", dpi = "print")
 ```
 
 ``` r
 venn2 <- venn.diagram(
   x = list("15_m" = unique(list_15_m), "15_sm" = unique(list_15_sm)),
   filename = NULL,
-  fill = c("#FF3030", "#FFA07A"),
+  fill = c("#67000D", "#FB6A4A"),
   alpha = 0.5, cex = 1.5, fontface = "bold",
   cat.cex = 1.2, cat.pos = c(-20, 20),
   main = "Venn_Poss: 15_m vs 15_sm"
@@ -93,15 +93,15 @@ grid.newpage(); grid.draw(venn2)
 
 ``` r
 # Save plot
-#ggsave("../Result/venn_results/Figuras/PDF/venn2_p.pdf", plot = venn2, width = 5, height = 4, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/venn2_p.png", plot = venn2, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/venn2_p.pdf", plot = venn2, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/venn2_p.png", plot = venn2, width = 5, height = 4, units = "in", dpi = "print")
 ```
 
 ``` r
 venn3 <- venn.diagram(
   x = list("5_m" = unique(list_5_m), "15_m" = unique(list_15_m)),
   filename = NULL,
-  fill = c("#0000FF", "#FF3030"),
+  fill = c("#FFFFFF", "#67000D"),
   alpha = 0.5, cex = 1.5, fontface = "bold",
   cat.cex = 1.2, cat.pos = c(-20, 20),
   main = "Venn_Poss: 5_m vs 15_m"
@@ -114,8 +114,8 @@ grid.newpage(); grid.draw(venn3)
 
 ``` r
 # Save plot
-#ggsave("../Result/venn_results/Figuras/PDF/venn3_p.pdf", plot = venn3, width = 5, height = 4, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/venn3_p.png", plot = venn3, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/venn3_p.pdf", plot = venn3, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/venn3_p.png", plot = venn3, width = 5, height = 4, units = "in", dpi = "print")
 ```
 
 ``` r
@@ -129,7 +129,7 @@ compartidos_5m_15m <- length(intersect(unique(list_5_m), unique(list_15_m)))
 
 # Crear dataframe para graficar totales por grupo y valores compartidos
 conteos_barras <- tibble(
-  Grupo = c("5_m", "5_m:5_sm", "5_sm", "15_m","15_m:15_sm", "15_sm", "5_m:15_m"),
+  Grupo = c("5_m", "5_m:5_sm", "5_sm", "15_m", "15_m:15_sm", "15_sm", "5_m:15_m"),
   Conteo = c(
     length(list_5_m),
     compartidos_5m_5sm,
@@ -141,21 +141,35 @@ conteos_barras <- tibble(
   )
 )
 
-# Graficar barras simples
+# Reordenar los niveles del factor para que el gráfico tenga el orden deseado
+conteos_barras <- conteos_barras %>%
+  mutate(Grupo = factor(
+    Grupo,
+    levels = c("15_m", "15_sm", "15_m:15_sm", "5_m", "5_sm", "5_m:5_sm", "5_m:15_m")
+  ))
+
+# Paleta monocromática en rojo
+color_rojo <- c(
+  "15_m" = "#67000D",
+  "15_sm" = "#FB6A4A",
+  "15_m:15_sm" = "#FCAE91",
+  "5_m" = "#67000D",
+  "5_sm" = "#FB6A4A",
+  "5_m:5_sm" = "#FCAE91",
+  "5_m:15_m" = "#D7301F"
+)
+
+# Gráfico
 barras1_pos <- ggplot(conteos_barras, aes(x = Grupo, y = Conteo, fill = Grupo)) +
   geom_bar(stat = "identity", width = 0.6, show.legend = FALSE) +
   geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
-  scale_fill_manual(values = c(
-    "5_m" = "#0000FF",
-    "5_sm" = "#00BFFF",
-    "15_m" = "#FF3030",
-    "15_sm" = "#FFA07A",
-    "5m_5sm" = "#27408B",
-    "15m_15sm" = "#CD0000",
-    "5m_15m" = "#E0FFFF"
-  )) +
-  labs(title = "Total item count and unique matches between groups in positive", y = "Number of elements", x = "Group") +
+  scale_fill_manual(values = color_rojo) +
+  labs(
+    title = "Conteo total y coincidencias únicas entre grupos (modo positivo)",
+    y = "Número de elementos", x = "Grupo"
+  ) +
   theme_minimal(base_size = 14)
+
 
 barras1_pos
 ```
@@ -164,8 +178,8 @@ barras1_pos
 
 ``` r
 # Save plot
-#ggsave("../Result/venn_results/Figuras/PDF/Barras1_p.pdf", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/Barras1_p.png", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/Barras1_p.pdf", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/Barras1_p.png", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ``` r
@@ -191,7 +205,7 @@ list_15_sm_neg <- df_neg %>% filter(Iones == "15_sm") %>% pull(Precursor_round_n
 venn1_neg <- venn.diagram(
   x = list("5_m" = unique(list_5_m_neg), "5_sm" = unique(list_5_sm_neg)),
   filename = NULL,
-  fill = c("#00008B", "#53868B"),
+  fill = c("#08306B", "#4292C6"),
   alpha = 0.5, cex = 1.5, fontface = "bold",
   cat.cex = 1.2, cat.pos = c(-20, 20),
   main = "Venn Neg: 5_m vs 5_sm"
@@ -202,15 +216,15 @@ grid.newpage(); grid.draw(venn1_neg)
 ![](grafica_venn_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
-#ggsave("../Result/venn_results/Figuras/PDF/venn1_n.pdf", plot = venn1_neg, width = 5, height = 4, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/venn1_n.png", plot = venn1_neg, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/venn1_n.pdf", plot = venn1_neg, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/venn1_n.png", plot = venn1_neg, width = 5, height = 4, units = "in", dpi = "print")
 ```
 
 ``` r
 venn2_neg <- venn.diagram(
   x = list("15_m" = unique(list_15_m_neg), "15_sm" = unique(list_15_sm_neg)),
   filename = NULL,
-  fill = c("#8B4513", "#EE7600"),
+  fill = c("#08306B", "#4292C6"),
   alpha = 0.5, cex = 1.5, fontface = "bold",
   cat.cex = 1.2, cat.pos = c(-20, 20),
   main = "Venn Neg: 15_m vs 15_sm"
@@ -221,15 +235,15 @@ grid.newpage(); grid.draw(venn2_neg)
 ![](grafica_venn_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
-#ggsave("../Result/venn_results/Figuras/PDF/venn2_n.pdf", plot = venn2_neg, width = 5, height = 4, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/venn2_n.png", plot = venn2_neg, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/venn2_n.pdf", plot = venn2_neg, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/venn2_n.png", plot = venn2_neg, width = 5, height = 4, units = "in", dpi = "print")
 ```
 
 ``` r
 venn3_neg <- venn.diagram(
   x = list("5_m" = unique(list_5_m_neg), "15_m" = unique(list_15_m_neg)),
   filename = NULL,
-  fill = c("#00008B", "#8B4513"),
+  fill = c("#FFFFFF", "#08306B"),
   alpha = 0.5, cex = 1.5, fontface = "bold",
   cat.cex = 1.2, cat.pos = c(-20, 20),
   main = "Venn Negativa: 5_m vs 15_m"
@@ -240,8 +254,8 @@ grid.newpage(); grid.draw(venn3_neg)
 ![](grafica_venn_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
-#ggsave("../Result/venn_results/Figuras/PDF/venn3_n.pdf", plot = venn3_neg, width = 5, height = 4, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/venn3_n.png", plot = venn3_neg, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/venn3_n.pdf", plot = venn3_neg, width = 5, height = 4, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/venn3_n.png", plot = venn3_neg, width = 5, height = 4, units = "in", dpi = "print")
 ```
 
 ``` r
@@ -267,20 +281,33 @@ conteos_barras_neg <- tibble(
   )
 )
 
-# Graficar barras
+# Orden correcto de los niveles del factor
+conteos_barras_neg <- conteos_barras_neg %>%
+  mutate(Grupo = factor(
+    Grupo,
+    levels = c("15_m", "15_sm", "15_m:15_sm", "5_m", "5_sm", "5_m:5_sm", "5_m:15_m")
+  ))
+
+# Paleta de azul + un verde azulado para intergrupo
+color_azul <- c(
+  "15_m" = "#08306B",
+  "15_sm" = "#4292C6",
+  "15_m:15_sm" = "#C6DBEF",
+  "5_m" = "#08306B",
+  "5_sm" = "#6BAED6",
+  "5_m:5_sm" = "#C6DBEF",
+  "5_m:15_m" = "#238B45"
+)
+
+# Gráfico final
 barras1_neg <- ggplot(conteos_barras_neg, aes(x = Grupo, y = Conteo, fill = Grupo)) +
   geom_bar(stat = "identity", width = 0.6, show.legend = FALSE) +
   geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
-  scale_fill_manual(values = c(
-    "5_m" = "#00008B",
-    "5_sm" = "#53868B",
-    "15_m" = "#8B4513",
-    "15_sm" = "#EE7600",
-    "5_m:5_sm" = "#5D478B",
-    "15_m:15_sm" = "#8B5A00",
-    "5_m:15_m" = "#CD69C9"
-  )) +
-  labs(title = "Total item count and unique matches between groups  in negative", y = "Number of elements", x = "Group") +
+  scale_fill_manual(values = color_azul) +
+  labs(
+    title = "Conteo total y coincidencias únicas entre grupos (modo negativo)",
+    y = "Número de elementos", x = "Grupo"
+  ) +
   theme_minimal(base_size = 14)
 
 barras1_neg
@@ -289,6 +316,6 @@ barras1_neg
 ![](grafica_venn_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
-#ggsave("../Result/venn_results/Figuras/PDF/barras1_neg.pdf", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/venn_results/Figuras/PNG/barras1_neg.png", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PDF/barras1_neg.pdf", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/barras1_neg.png", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
 ```
