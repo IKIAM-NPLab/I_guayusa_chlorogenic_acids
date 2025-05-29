@@ -1,0 +1,294 @@
+Extra Data of: LC-MS/MS profiling and characterization of caffeoylquinic
+acids isomers in *Ilex guayusa* under different collection sites, plant
+age, and sunlight exposure
+================
+Thomas Garzon
+2025-05-29
+
+``` r
+# Cargar librerías necesarias
+library(VennDiagram)
+```
+
+    ## Warning: package 'VennDiagram' was built under R version 4.4.3
+
+    ## Cargando paquete requerido: grid
+
+    ## Cargando paquete requerido: futile.logger
+
+    ## Warning: package 'futile.logger' was built under R version 4.4.3
+
+``` r
+library(tidyverse)
+```
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+    ## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+    ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+    ## ✔ purrr     1.0.2
+
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+
+``` r
+library(readxl)
+library(ggplot2)
+
+# Leer datos desde el nuevo archivo .xlsx
+df <- read_excel("../Data/Data_to_venn/venn.xlsx")
+
+# Redondear valores de Precursor (opcional)
+num_decimales <- 3
+df <- df %>% mutate(Precursor_round = round(Precursor, num_decimales))
+
+# Crear subconjuntos según los niveles de la columna Iones (sin considerar Collision_energy)
+list_5_m   <- df %>% filter(Iones == "5_m") %>% pull(Precursor_round)
+list_5_sm  <- df %>% filter(Iones == "5_sm") %>% pull(Precursor_round)
+list_15_m  <- df %>% filter(Iones == "15_m") %>% pull(Precursor_round)
+list_15_sm <- df %>% filter(Iones == "15_sm") %>% pull(Precursor_round)
+```
+
+``` r
+# ----------------------
+# Crear diagramas de Venn
+# ----------------------
+venn1 <- venn.diagram(
+  x = list("5_m" = unique(list_5_m), "5_sm" = unique(list_5_sm)),
+  filename = NULL,
+  fill = c("#0000FF", "#00BFFF"),
+  alpha = 0.5, cex = 1.5, fontface = "bold",
+  cat.cex = 1.2, cat.pos = c(-20, 20),
+  main = "Venn_Poss: 5_m vs 5_sm"
+)
+
+grid.newpage(); grid.draw(venn1)
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+``` r
+# Save plot
+#ggsave("../Result/venn_results/Figuras/PDF/venn1_p.pdf", plot = venn1, width = 5, height = 4, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/venn1_p.png", plot = venn1, width = 5, height = 4, units = "in", dpi = "print")
+```
+
+``` r
+venn2 <- venn.diagram(
+  x = list("15_m" = unique(list_15_m), "15_sm" = unique(list_15_sm)),
+  filename = NULL,
+  fill = c("#FF3030", "#FFA07A"),
+  alpha = 0.5, cex = 1.5, fontface = "bold",
+  cat.cex = 1.2, cat.pos = c(-20, 20),
+  main = "Venn_Poss: 15_m vs 15_sm"
+)
+
+grid.newpage(); grid.draw(venn2)
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+``` r
+# Save plot
+#ggsave("../Result/venn_results/Figuras/PDF/venn2_p.pdf", plot = venn2, width = 5, height = 4, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/venn2_p.png", plot = venn2, width = 5, height = 4, units = "in", dpi = "print")
+```
+
+``` r
+venn3 <- venn.diagram(
+  x = list("5_m" = unique(list_5_m), "15_m" = unique(list_15_m)),
+  filename = NULL,
+  fill = c("#0000FF", "#FF3030"),
+  alpha = 0.5, cex = 1.5, fontface = "bold",
+  cat.cex = 1.2, cat.pos = c(-20, 20),
+  main = "Venn_Poss: 5_m vs 15_m"
+)
+
+grid.newpage(); grid.draw(venn3)
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
+# Save plot
+#ggsave("../Result/venn_results/Figuras/PDF/venn3_p.pdf", plot = venn3, width = 5, height = 4, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/venn3_p.png", plot = venn3, width = 5, height = 4, units = "in", dpi = "print")
+```
+
+``` r
+# ----------------------
+# Graficos de barras: totales y compartidos
+# ----------------------
+# Calcular valores compartidos (únicos) entre los pares de interés
+compartidos_5m_5sm <- length(intersect(unique(list_5_m), unique(list_5_sm)))
+compartidos_15m_15sm <- length(intersect(unique(list_15_m), unique(list_15_sm)))
+compartidos_5m_15m <- length(intersect(unique(list_5_m), unique(list_15_m)))
+
+# Crear dataframe para graficar totales por grupo y valores compartidos
+conteos_barras <- tibble(
+  Grupo = c("5_m", "5_m:5_sm", "5_sm", "15_m","15_m:15_sm", "15_sm", "5_m:15_m"),
+  Conteo = c(
+    length(list_5_m),
+    compartidos_5m_5sm,
+    length(list_5_sm),
+    length(list_15_m),
+    compartidos_15m_15sm,
+    length(list_15_sm),
+    compartidos_5m_15m
+  )
+)
+
+# Graficar barras simples
+barras1_pos <- ggplot(conteos_barras, aes(x = Grupo, y = Conteo, fill = Grupo)) +
+  geom_bar(stat = "identity", width = 0.6, show.legend = FALSE) +
+  geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
+  scale_fill_manual(values = c(
+    "5_m" = "#0000FF",
+    "5_sm" = "#00BFFF",
+    "15_m" = "#FF3030",
+    "15_sm" = "#FFA07A",
+    "5m_5sm" = "#27408B",
+    "15m_15sm" = "#CD0000",
+    "5m_15m" = "#E0FFFF"
+  )) +
+  labs(title = "Total item count and unique matches between groups in positive", y = "Number of elements", x = "Group") +
+  theme_minimal(base_size = 14)
+
+barras1_pos
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+# Save plot
+#ggsave("../Result/venn_results/Figuras/PDF/Barras1_p.pdf", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/Barras1_p.png", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
+```
+
+``` r
+# Leer datos desde la segunda hoja del archivo .xlsx (modo ionización negativa)
+df_neg <- read_excel("../Data/Data_to_venn/venn.xlsx", sheet = 2)
+
+# Redondear valores de Precursor (opcional)
+num_decimales <- 3
+df_neg <- df_neg %>% mutate(Precursor_round_neg = round(Precursor, num_decimales))
+
+
+# Crear subconjuntos por niveles de la columna Iones (sin considerar Collision_energy)
+list_5_m_neg   <- df_neg %>% filter(Iones == "5_m") %>% pull(Precursor_round_neg)
+list_5_sm_neg  <- df_neg %>% filter(Iones == "5_sm") %>% pull(Precursor_round_neg)
+list_15_m_neg  <- df_neg %>% filter(Iones == "15_m") %>% pull(Precursor_round_neg)
+list_15_sm_neg <- df_neg %>% filter(Iones == "15_sm") %>% pull(Precursor_round_neg)
+```
+
+``` r
+# ----------------------
+# Crear diagramas de Venn para ionización negativa
+# ----------------------
+venn1_neg <- venn.diagram(
+  x = list("5_m" = unique(list_5_m_neg), "5_sm" = unique(list_5_sm_neg)),
+  filename = NULL,
+  fill = c("#00008B", "#53868B"),
+  alpha = 0.5, cex = 1.5, fontface = "bold",
+  cat.cex = 1.2, cat.pos = c(-20, 20),
+  main = "Venn Neg: 5_m vs 5_sm"
+)
+grid.newpage(); grid.draw(venn1_neg)
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+``` r
+#ggsave("../Result/venn_results/Figuras/PDF/venn1_n.pdf", plot = venn1_neg, width = 5, height = 4, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/venn1_n.png", plot = venn1_neg, width = 5, height = 4, units = "in", dpi = "print")
+```
+
+``` r
+venn2_neg <- venn.diagram(
+  x = list("15_m" = unique(list_15_m_neg), "15_sm" = unique(list_15_sm_neg)),
+  filename = NULL,
+  fill = c("#8B4513", "#EE7600"),
+  alpha = 0.5, cex = 1.5, fontface = "bold",
+  cat.cex = 1.2, cat.pos = c(-20, 20),
+  main = "Venn Neg: 15_m vs 15_sm"
+)
+grid.newpage(); grid.draw(venn2_neg)
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+#ggsave("../Result/venn_results/Figuras/PDF/venn2_n.pdf", plot = venn2_neg, width = 5, height = 4, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/venn2_n.png", plot = venn2_neg, width = 5, height = 4, units = "in", dpi = "print")
+```
+
+``` r
+venn3_neg <- venn.diagram(
+  x = list("5_m" = unique(list_5_m_neg), "15_m" = unique(list_15_m_neg)),
+  filename = NULL,
+  fill = c("#00008B", "#8B4513"),
+  alpha = 0.5, cex = 1.5, fontface = "bold",
+  cat.cex = 1.2, cat.pos = c(-20, 20),
+  main = "Venn Negativa: 5_m vs 15_m"
+)
+grid.newpage(); grid.draw(venn3_neg)
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+``` r
+#ggsave("../Result/venn_results/Figuras/PDF/venn3_n.pdf", plot = venn3_neg, width = 5, height = 4, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/venn3_n.png", plot = venn3_neg, width = 5, height = 4, units = "in", dpi = "print")
+```
+
+``` r
+# ----------------------
+# Graficos de barras: totales y compartidos (ionización negativa)
+# ----------------------
+# Calcular valores compartidos únicos entre pares de interés
+compartidos_5m_5sm_neg <- length(intersect(unique(list_5_m_neg), unique(list_5_sm_neg)))
+compartidos_15m_15sm_neg <- length(intersect(unique(list_15_m_neg), unique(list_15_sm_neg)))
+compartidos_5m_15m_neg <- length(intersect(unique(list_5_m_neg), unique(list_15_m_neg)))
+
+# Crear dataframe para conteo y visualización
+conteos_barras_neg <- tibble(
+  Grupo = c("5_m", "5_sm", "15_m", "15_sm", "5_m:5_sm", "15_m:15_sm", "5_m:15_m"),
+  Conteo = c(
+    length(list_5_m_neg),
+    length(list_5_sm_neg),
+    length(list_15_m_neg),
+    length(list_15_sm_neg),
+    compartidos_5m_5sm_neg,
+    compartidos_15m_15sm_neg,
+    compartidos_5m_15m_neg
+  )
+)
+
+# Graficar barras
+barras1_neg <- ggplot(conteos_barras_neg, aes(x = Grupo, y = Conteo, fill = Grupo)) +
+  geom_bar(stat = "identity", width = 0.6, show.legend = FALSE) +
+  geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
+  scale_fill_manual(values = c(
+    "5_m" = "#00008B",
+    "5_sm" = "#53868B",
+    "15_m" = "#8B4513",
+    "15_sm" = "#EE7600",
+    "5_m:5_sm" = "#5D478B",
+    "15_m:15_sm" = "#8B5A00",
+    "5_m:15_m" = "#CD69C9"
+  )) +
+  labs(title = "Total item count and unique matches between groups  in negative", y = "Number of elements", x = "Group") +
+  theme_minimal(base_size = 14)
+
+barras1_neg
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+``` r
+#ggsave("../Result/venn_results/Figuras/PDF/barras1_neg.pdf", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
+#ggsave("../Result/venn_results/Figuras/PNG/barras1_neg.png", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
+```
