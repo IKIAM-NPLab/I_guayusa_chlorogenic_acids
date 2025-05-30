@@ -37,8 +37,8 @@ figure_unionsuppone <- ggpubr::as_ggplot(figure_union_supp_1) +
     size = 14
   )
 # Exporting (*.pdf) file
-ggsave(filename = "Supplementary_files/Result/venn_results/Figuras/PDF/figure_union.pdf", plot = figure_unionsuppone,
+ggsave(filename = "../Result/venn_results/Figuras/PDF/figure_union.pdf", plot = figure_unionsuppone,
        width = 175, height = 250, units = "mm", dpi = 300, scale = 2.5)
 # Exporting (*.png) file
-ggsave(filename = "Supplementary_files/Result/venn_results/Figuras/PDF/figure_union.png", plot = figure_unionsuppone,
+ggsave(filename = "../Result/venn_results/Figuras/PNG/figure_union.png", plot = figure_unionsuppone,
        width = 175, height = 250, units = "mm", dpi = 300, scale = 2.5)
