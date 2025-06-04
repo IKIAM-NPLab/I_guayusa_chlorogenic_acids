@@ -14,8 +14,8 @@ Statistical Analysis: Statistical analyses based on a factorial design were appl
 
 Multivariate Statistical Analysis: Multivariate statistical analyses were performed on the LC-MS data from the samples.
 
-- [Statistical analysis Negative [M-H]-](https://github.com/IKIAM-NPLab/I_guayusa_volatilome/blob/main/Noteboks/Spectral_Deconvolution.md)
-- [Statistical analysis Possitive [M+H]+](https://github.com/IKIAM-NPLab/I_guayusa_volatilome/blob/main/Noteboks/Spectral_Deconvolution.md)
+- [[Statistical analysis Negative [M-H]-]](https://github.com/IKIAM-NPLab/I_guayusa_chlorogenic_acids/blob/main/Notebooks/Statistical_Analysis_neg.md)
+- [[Statistical analysis Possitive [M+H]+]](https://github.com/IKIAM-NPLab/I_guayusa_chlorogenic_acids/blob/main/Notebooks/Statistical_Analysis_pos.md)
 
 In addition, we complete the information on data acquisition and techniques developed in the article of this repository.
 - [Supplementary](https://github.com/IKIAM-NPLab/I_guayusa_chlorogenic_acids/tree/main/Supplementary_files)
