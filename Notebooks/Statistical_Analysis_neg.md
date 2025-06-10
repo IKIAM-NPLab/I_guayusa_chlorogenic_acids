@@ -1,4 +1,4 @@
-LC-MS/MS profiling and characterization of caffeoylquinic acids isomers
+LC-MS/MS in negative polarity of profiling and characterization of caffeoylquinic acids isomers
 in *Ilex guayusa* under different collection sites, plant age, and
 sunlight exposure
 ================
