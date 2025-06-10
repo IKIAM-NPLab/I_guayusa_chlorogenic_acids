@@ -1,4 +1,4 @@
-LC-MS/MS profiling and characterization of caffeoylquinic acids isomers
+Stadistical Factory design of LC-MS/MS profiling and characterization of caffeoylquinic acids isomers
 in Ilex guayusa under different collection sites, plant age, and
 sunlight exposure
 ================
