@@ -1,6 +1,6 @@
-LC-MS/MS in negative polarity of profiling and characterization of caffeoylquinic acids isomers
-in *Ilex guayusa* under different collection sites, plant age, and
-sunlight exposure
+Negative polarity: LC-MS/MS profiling and characterization of
+caffeoylquinic acids isomers in *Ilex guayusa* under different
+collection sites, plant age, and sunlight exposure
 ================
 Thomas Garzon, Jefferson Pastuña
 2025-05-27
@@ -135,7 +135,7 @@ install_dependencies
     ##         install_helper(cran = misc_cran, ...)
     ##     }
     ## }
-    ## <bytecode: 0x0000020b6bc86200>
+    ## <bytecode: 0x0000021d17a55820>
     ## <environment: namespace:notame>
 
 Then, a log system were added to have a record of each process executed.
@@ -145,7 +145,7 @@ Then, a log system were added to have a record of each process executed.
 init_log(log_file = "../Result/notame_results/LCMS-neg_log.txt")
 ```
 
-    ## INFO [2025-05-27 18:26:25] Starting logging
+    ## INFO [2025-06-11 15:36:24] Starting logging
 
 Next, the MZmine feature list in “notame” format was loaded.
 
@@ -155,30 +155,30 @@ data <- read_from_excel(file = "../Data/Data_to_notame/MZmine_to_R_notame_neg.xl
                         split_by = c("Column", "Ion_Mode"))
 ```
 
-    ## INFO [2025-05-27 18:26:25] Corner detected correctly at row 11, column I
-    ## INFO [2025-05-27 18:26:25] 
+    ## INFO [2025-06-11 15:36:25] Corner detected correctly at row 11, column I
+    ## INFO [2025-06-11 15:36:25] 
     ## Extracting sample information from rows 1 to 11 and columns J to DE
-    ## INFO [2025-05-27 18:26:25] Replacing spaces in sample information column names with underscores (_)
-    ## INFO [2025-05-27 18:26:25] Naming the last column of sample information "Datafile"
-    ## INFO [2025-05-27 18:26:25] 
+    ## INFO [2025-06-11 15:36:25] Replacing spaces in sample information column names with underscores (_)
+    ## INFO [2025-06-11 15:36:25] Naming the last column of sample information "Datafile"
+    ## INFO [2025-06-11 15:36:25] 
     ## Extracting feature information from rows 12 to 647 and columns A to I
-    ## INFO [2025-05-27 18:26:25] Creating Split column from Column, Ion_Mode
-    ## INFO [2025-05-27 18:26:25] Feature_ID column not found, creating feature IDs
-    ## INFO [2025-05-27 18:26:25] Identified m/z column row_m_z and retention time column row_retention_time
-    ## INFO [2025-05-27 18:26:25] Identified m/z column row_m_z and retention time column row_retention_time
-    ## INFO [2025-05-27 18:26:25] Creating feature IDs from Split, m/z and retention time
-    ## INFO [2025-05-27 18:26:25] Replacing dots (.) in feature information column names with underscores (_)
-    ## INFO [2025-05-27 18:26:25] 
+    ## INFO [2025-06-11 15:36:25] Creating Split column from Column, Ion_Mode
+    ## INFO [2025-06-11 15:36:25] Feature_ID column not found, creating feature IDs
+    ## INFO [2025-06-11 15:36:25] Identified m/z column row_m_z and retention time column row_retention_time
+    ## INFO [2025-06-11 15:36:25] Identified m/z column row_m_z and retention time column row_retention_time
+    ## INFO [2025-06-11 15:36:25] Creating feature IDs from Split, m/z and retention time
+    ## INFO [2025-06-11 15:36:25] Replacing dots (.) in feature information column names with underscores (_)
+    ## INFO [2025-06-11 15:36:25] 
     ## Extracting feature abundances from rows 12 to 647 and columns J to DE
-    ## INFO [2025-05-27 18:26:25] 
+    ## INFO [2025-06-11 15:36:25] 
     ## Checking sample information
-    ## INFO [2025-05-27 18:26:25] Checking that feature abundances only contain numeric values
-    ## INFO [2025-05-27 18:26:26] 
+    ## INFO [2025-06-11 15:36:25] Checking that feature abundances only contain numeric values
+    ## INFO [2025-06-11 15:36:25] 
     ## Checking feature information
-    ## INFO [2025-05-27 18:26:26] Checking that feature IDs are unique and not stored as numbers
-    ## INFO [2025-05-27 18:26:26] Checking that m/z and retention time values are reasonable
-    ## INFO [2025-05-27 18:26:26] Identified m/z column row_m_z and retention time column row_retention_time
-    ## INFO [2025-05-27 18:26:26] Identified m/z column row_m_z and retention time column row_retention_time
+    ## INFO [2025-06-11 15:36:25] Checking that feature IDs are unique and not stored as numbers
+    ## INFO [2025-06-11 15:36:25] Checking that m/z and retention time values are reasonable
+    ## INFO [2025-06-11 15:36:25] Identified m/z column row_m_z and retention time column row_retention_time
+    ## INFO [2025-06-11 15:36:25] Identified m/z column row_m_z and retention time column row_retention_time
 
 Once the data was loaded, the next step was to create a MetaboSet to
 work with R objects from now on.
@@ -191,11 +191,11 @@ modes <- construct_metabosets(exprs = data$exprs,
 ```
 
     ## Initializing the object(s) with unflagged features
-    ## INFO [2025-05-27 18:26:26] 
+    ## INFO [2025-06-11 15:36:25] 
     ## Checking feature information
-    ## INFO [2025-05-27 18:26:26] Checking that feature IDs are unique and not stored as numbers
-    ## INFO [2025-05-27 18:26:26] Checking that feature abundances only contain numeric values
-    ## INFO [2025-05-27 18:26:26] Setting row and column names of exprs based on feature and pheno data
+    ## INFO [2025-06-11 15:36:25] Checking that feature IDs are unique and not stored as numbers
+    ## INFO [2025-06-11 15:36:25] Checking that feature abundances only contain numeric values
+    ## INFO [2025-06-11 15:36:25] Setting row and column names of exprs based on feature and pheno data
 
 Raw data inspection.
 
@@ -246,7 +246,7 @@ group or class.
 mode <- flag_detection(mode, qc_limit = 12/14, group_limit = 2/3)
 ```
 
-    ## INFO [2025-05-27 18:26:28] 
+    ## INFO [2025-06-11 15:36:28] 
     ## 0% of features flagged for low detection rate
 
 ``` r
@@ -269,13 +269,13 @@ drift correction can be applied by smoothed cubic spline regression.
 corrected <- correct_drift(mode)
 ```
 
-    ## INFO [2025-05-27 18:26:28] 
-    ## Starting drift correction at 2025-05-27 18:26:28.777579
+    ## INFO [2025-06-11 15:36:28] 
+    ## Starting drift correction at 2025-06-11 15:36:28.335219
 
-    ## INFO [2025-05-27 18:26:30] Drift correction performed at 2025-05-27 18:26:30.103173
-    ## INFO [2025-05-27 18:26:30] Inspecting drift correction results 2025-05-27 18:26:30.733321
-    ## INFO [2025-05-27 18:26:31] Drift correction results inspected at 2025-05-27 18:26:31.874774
-    ## INFO [2025-05-27 18:26:31] 
+    ## INFO [2025-06-11 15:36:29] Drift correction performed at 2025-06-11 15:36:29.774354
+    ## INFO [2025-06-11 15:36:30] Inspecting drift correction results 2025-06-11 15:36:30.432994
+    ## INFO [2025-06-11 15:36:31] Drift correction results inspected at 2025-06-11 15:36:31.64127
+    ## INFO [2025-06-11 15:36:31] 
     ## Drift correction results inspected, report:
     ## Drift_corrected: 100%
 
@@ -285,7 +285,7 @@ corrected <- flag_quality(corrected,
                           condition = "RSD_r < 0.15 & D_ratio_r < 0.86")
 ```
 
-    ## INFO [2025-05-27 18:26:31] 
+    ## INFO [2025-06-11 15:36:31] 
     ## 0% of features flagged for low quality
 
 ``` r
@@ -323,7 +323,7 @@ corrected_blank <- flag_contaminants(corrected,
                                         flag_label = "Contaminant")
 ```
 
-    ## INFO [2025-05-27 18:26:33] 
+    ## INFO [2025-06-11 15:36:33] 
     ## 0% of features flagged as contaminants
 
 ``` r
@@ -377,29 +377,29 @@ clustered <- cluster_features(corrected_blank,
 )
 ```
 
-    ## INFO [2025-05-27 18:26:35] Identified m/z column row_m_z and retention time column row_retention_time
-    ## INFO [2025-05-27 18:26:35] 
-    ## Starting feature clustering at 2025-05-27 18:26:35.774809
-    ## INFO [2025-05-27 18:26:35] Finding connections between features in RP_NEG
+    ## INFO [2025-06-11 15:36:35] Identified m/z column row_m_z and retention time column row_retention_time
+    ## INFO [2025-06-11 15:36:35] 
+    ## Starting feature clustering at 2025-06-11 15:36:35.514242
+    ## INFO [2025-06-11 15:36:35] Finding connections between features in RP_NEG
     ## [1] 100
     ## [1] 200
     ## [1] 300
     ## [1] 400
     ## [1] 500
     ## [1] 600
-    ## INFO [2025-05-27 18:26:47] Found 43 connections in RP_NEG
-    ## INFO [2025-05-27 18:26:47] Found 43 connections
+    ## INFO [2025-06-11 15:36:47] Found 43 connections in RP_NEG
+    ## INFO [2025-06-11 15:36:47] Found 43 connections
     ## 24 components found
     ## 
     ## 13 components found
     ## 
-    ## INFO [2025-05-27 18:26:47] Found 26 clusters of 2 or more features, clustering finished at 2025-05-27 18:26:47.471474
+    ## INFO [2025-06-11 15:36:47] Found 26 clusters of 2 or more features, clustering finished at 2025-06-11 15:36:47.49985
 
 ``` r
 compressed <- compress_clusters(clustered)
 ```
 
-    ## INFO [2025-05-27 18:26:47] Clusters compressed, left with 608 features
+    ## INFO [2025-06-11 15:36:47] Clusters compressed, left with 608 features
 
 ``` r
 # Exporting data to inspect cluster features
@@ -477,8 +477,8 @@ pqn_set <- pqn_normalization(imputed,
                              all_features = FALSE)
 ```
 
-    ## INFO [2025-05-27 18:27:02] Starting PQN normalization
-    ## INFO [2025-05-27 18:27:02] Using median of qc samples as reference spectrum
+    ## INFO [2025-06-11 15:37:03] Starting PQN normalization
+    ## INFO [2025-06-11 15:37:03] Using median of qc samples as reference spectrum
 
 We can inspect the data with the PCA plot after data normalization.
 
@@ -595,8 +595,8 @@ volc_th <-
                                  formula_char = "Feature ~ Light_Factor")
 ```
 
-    ## INFO [2025-05-27 18:27:09] Starting homoscedasticity tests.
-    ## INFO [2025-05-27 18:27:13] Homoscedasticity tests performed.
+    ## INFO [2025-06-11 15:37:10] Starting homoscedasticity tests.
+    ## INFO [2025-06-11 15:37:14] Homoscedasticity tests performed.
 
 According to Levene’s test, all features showed an equal variance
 (p-value \> 0.05). Thus, the t-test and fold change will be calculated.
@@ -608,8 +608,8 @@ library(dplyr)
 volc_fc <- fold_change(volc_pqn, group = "Light_Factor")
 ```
 
-    ## INFO [2025-05-27 18:27:13] Starting to compute fold changes.
-    ## INFO [2025-05-27 18:27:13] Fold changes computed.
+    ## INFO [2025-06-11 15:37:14] Starting to compute fold changes.
+    ## INFO [2025-06-11 15:37:14] Fold changes computed.
 
 ``` r
 # two-sample t-test performing
@@ -618,8 +618,8 @@ volc_t <- perform_t_test(volc_glog,
                          var.equal = TRUE)
 ```
 
-    ## INFO [2025-05-27 18:27:13] Starting t-tests for Light & Shade
-    ## INFO [2025-05-27 18:27:14] t-tests performed.
+    ## INFO [2025-06-11 15:37:14] Starting t-tests for Light & Shade
+    ## INFO [2025-06-11 15:37:15] t-tests performed.
 
 ``` r
 # Adding the fold change to the t-test data
@@ -692,11 +692,20 @@ vc_plot
 
 ``` r
 # Save plot
-#ggsave('../Result/notame_results/Figuras/Volcano/PDF/figure_2b.pdf',
-#       width = 8, height = 7, device='pdf', dpi="print")
-#ggsave('../Result/notame_results/Figuras/Volcano/PNG/figure_2b.png',
-#       width = 8, height = 7, device='png', dpi="print")
+ggsave('../Result/notame_results/Figuras/Volcano/PDF/figure_2b.pdf',
+       width = 8, height = 7, device='pdf', dpi="print")
 ```
+
+    ## Warning: Removed 2 rows containing missing values or values outside the scale range
+    ## (`geom_label_repel()`).
+
+``` r
+ggsave('../Result/notame_results/Figuras/Volcano/PNG/figure_2b.png',
+       width = 8, height = 7, device='png', dpi="print")
+```
+
+    ## Warning: Removed 2 rows containing missing values or values outside the scale range
+    ## (`geom_label_repel()`).
 
 ### Sample volcano plot
 
@@ -732,8 +741,8 @@ sp_volc_th <-
                                  formula_char = "Feature ~ Light_Factor")
 ```
 
-    ## INFO [2025-05-27 18:27:15] Starting homoscedasticity tests.
-    ## INFO [2025-05-27 18:27:18] Homoscedasticity tests performed.
+    ## INFO [2025-06-11 15:37:17] Starting homoscedasticity tests.
+    ## INFO [2025-06-11 15:37:20] Homoscedasticity tests performed.
 
 ``` r
 # Adding homoscedasticity results to notame MetaboSet
@@ -753,8 +762,8 @@ Calculation of t-test, Welch’s t-test and fold change.
 sp_volc_fc <- fold_change(sp_volc_pqn, group = "Light_Factor")
 ```
 
-    ## INFO [2025-05-27 18:27:18] Starting to compute fold changes.
-    ## INFO [2025-05-27 18:27:19] Fold changes computed.
+    ## INFO [2025-06-11 15:37:21] Starting to compute fold changes.
+    ## INFO [2025-06-11 15:37:21] Fold changes computed.
 
 ``` r
 # The two-sample t-test performing
@@ -763,8 +772,8 @@ sp_volc_tt <- perform_t_test(sp_volc_ttset,
                             var.equal = TRUE)
 ```
 
-    ## INFO [2025-05-27 18:27:19] Starting t-tests for Light & Shade
-    ## INFO [2025-05-27 18:27:20] t-tests performed.
+    ## INFO [2025-06-11 15:37:21] Starting t-tests for Light & Shade
+    ## INFO [2025-06-11 15:37:22] t-tests performed.
 
 ``` r
 # Adding a tag for t-test results
@@ -777,8 +786,8 @@ sp_volc_wtt <- perform_t_test(sp_volc_wttset,
                             var.equal = TRUE)
 ```
 
-    ## INFO [2025-05-27 18:27:20] Starting t-tests for Light & Shade
-    ## INFO [2025-05-27 18:27:20] t-tests performed.
+    ## INFO [2025-06-11 15:37:22] Starting t-tests for Light & Shade
+    ## INFO [2025-06-11 15:37:22] t-tests performed.
 
 ``` r
 # Adding a tag for Welch's t-test results
@@ -854,11 +863,20 @@ sp_vc_plot
 
 ``` r
 # Save plot
-#ggsave(filename = "../Result/notame_results/Figuras/Volcano/PDF/Figure_s5.pdf", plot = sp_vc_plot,
-#       width = 7, height = 8, units = "in", dpi = "print")
-#ggsave(filename = "../Result/notame_results/Figuras/Volcano/PNG/Figure_s5.png", plot = sp_vc_plot,
-#       width = 7, height = 8, units = "in", dpi = "print")
+ggsave(filename = "../Result/notame_results/Figuras/Volcano/PDF/Figure_s5.pdf", plot = sp_vc_plot,
+       width = 7, height = 8, units = "in", dpi = "print")
 ```
+
+    ## Warning: Removed 5 rows containing missing values or values outside the scale range
+    ## (`geom_label_repel()`).
+
+``` r
+ggsave(filename = "../Result/notame_results/Figuras/Volcano/PNG/Figure_s5.png", plot = sp_vc_plot,
+       width = 7, height = 8, units = "in", dpi = "print")
+```
+
+    ## Warning: Removed 5 rows containing missing values or values outside the scale range
+    ## (`geom_label_repel()`).
 
 # Tukey test
 
@@ -923,8 +941,8 @@ tk_bar_res <-
                                  formula_char = "Feature ~ Age_Factor")
 ```
 
-    ## INFO [2025-05-27 18:27:21] Starting homoscedasticity tests.
-    ## INFO [2025-05-27 18:27:21] Homoscedasticity tests performed.
+    ## INFO [2025-06-11 15:37:24] Starting homoscedasticity tests.
+    ## INFO [2025-06-11 15:37:24] Homoscedasticity tests performed.
 
 ``` r
 # Adding a description of the p-value
@@ -1255,8 +1273,8 @@ tk_spl_bar_res <-
                                  formula_char = "Feature ~ Age_Factor")
 ```
 
-    ## INFO [2025-05-27 18:27:22] Starting homoscedasticity tests.
-    ## INFO [2025-05-27 18:27:22] Homoscedasticity tests performed.
+    ## INFO [2025-06-11 15:37:25] Starting homoscedasticity tests.
+    ## INFO [2025-06-11 15:37:25] Homoscedasticity tests performed.
 
 ``` r
 # Adding a description of the p-value
@@ -1551,8 +1569,8 @@ ggplot(scores,
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/PCA_general.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/PCA_general.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/PCA_general.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/PCA_general.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Light factor PCA
@@ -1612,8 +1630,8 @@ figure_1a
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results//Figuras/PCA/PDF/figure_1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1a.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results//Figuras/PCA/PDF/figure_1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1a.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Age factor PCA
@@ -1675,8 +1693,8 @@ figure_1b
 
 ``` r
 # Save Plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1b.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1b.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Location factor PCA
@@ -1736,8 +1754,8 @@ figure_1c
 
 ``` r
 # Save Plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1c.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1c.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting a loading PCA result.
@@ -1787,8 +1805,8 @@ figure_1d
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_1d.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_1d.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Alto Pano location PCA
@@ -1864,8 +1882,8 @@ figure_s1a
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1a.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1a.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting the Alto Pano loading PCA result.
@@ -1914,8 +1932,8 @@ figure_s1d
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1d.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1d.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Alto Tena location PCA
@@ -1988,8 +2006,8 @@ figure_s1b
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1b.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1b.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting the Alto Tena loading PCA result.
@@ -2038,8 +2056,8 @@ figure_s1e
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1e.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1e.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1e.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1e.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Talag location PCA
@@ -2112,8 +2130,8 @@ figure_s1c
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1c.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1c.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting the Talag loading PCA result.
@@ -2162,8 +2180,8 @@ figure_s1f
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1f.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1f.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1f.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1f.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ## Heatmap and HCA
@@ -2370,8 +2388,8 @@ gcms_hm
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/HCA/PDF/figure_s1f.pdf", width = 8, height = 8, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/HCA/PNG/figure_s1f.png", width = 8, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PDF/figure_s1f.pdf", width = 8, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PNG/figure_s1f.png", width = 8, height = 8, units = "in", dpi = "print")
 ```
 
 ### Heatmap and HCA of sample
@@ -2516,8 +2534,8 @@ gcms_hm_spl
 
 ``` r
 # Save plot
-#ggsave("../Result/notame_results/Figuras/HCA/PDF/HCA_samples.pdf", width = 10, height = 8, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/HCA/PNG/HCA_samples.png", width = 10, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PDF/HCA_samples.pdf", width = 10, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PNG/HCA_samples.png", width = 10, height = 8, units = "in", dpi = "print")
 ```
 
 Finish a record.
@@ -2526,91 +2544,93 @@ Finish a record.
 finish_log()
 ```
 
-    ## INFO [2025-05-27 18:27:33] Finished analysis. Tue May 27 18:27:33 2025
+    ## INFO [2025-06-11 15:37:43] Finished analysis. Wed Jun 11 15:37:43 2025
     ## Session info:
     ## 
-    ## INFO [2025-05-27 18:27:33] R version 4.4.2 (2024-10-31 ucrt)
-    ## INFO [2025-05-27 18:27:33] Platform: x86_64-w64-mingw32/x64
-    ## INFO [2025-05-27 18:27:33] Running under: Windows 11 x64 (build 26100)
-    ## INFO [2025-05-27 18:27:33] 
-    ## INFO [2025-05-27 18:27:33] Matrix products: default
-    ## INFO [2025-05-27 18:27:33] 
-    ## INFO [2025-05-27 18:27:33] 
-    ## INFO [2025-05-27 18:27:33] locale:
-    ## INFO [2025-05-27 18:27:33] [1] LC_COLLATE=Spanish_Mexico.utf8  LC_CTYPE=Spanish_Mexico.utf8   
-    ## INFO [2025-05-27 18:27:33] [3] LC_MONETARY=Spanish_Mexico.utf8 LC_NUMERIC=C                   
-    ## INFO [2025-05-27 18:27:33] [5] LC_TIME=Spanish_Mexico.utf8    
-    ## INFO [2025-05-27 18:27:33] 
-    ## INFO [2025-05-27 18:27:33] time zone: America/Guayaquil
-    ## INFO [2025-05-27 18:27:33] tzcode source: internal
-    ## INFO [2025-05-27 18:27:33] 
-    ## INFO [2025-05-27 18:27:33] attached base packages:
-    ## INFO [2025-05-27 18:27:33]  [1] grid      stats4    parallel  stats     graphics  grDevices utils    
-    ## INFO [2025-05-27 18:27:33]  [8] datasets  methods   base     
-    ## INFO [2025-05-27 18:27:33] 
-    ## INFO [2025-05-27 18:27:33] other attached packages:
-    ## INFO [2025-05-27 18:27:33]  [1] cowplot_1.1.3               colorRamp2_0.0.1           
-    ## INFO [2025-05-27 18:27:33]  [3] ComplexHeatmap_2.22.0       gt_0.11.1                  
-    ## INFO [2025-05-27 18:27:33]  [5] agricolae_1.3-7             pmp_1.18.0                 
-    ## INFO [2025-05-27 18:27:33]  [7] SummarizedExperiment_1.36.0 GenomicRanges_1.58.0       
-    ## INFO [2025-05-27 18:27:33]  [9] GenomeInfoDb_1.42.1         IRanges_2.40.1             
-    ## INFO [2025-05-27 18:27:33] [11] S4Vectors_0.44.0            MatrixGenerics_1.18.1      
-    ## INFO [2025-05-27 18:27:33] [13] matrixStats_1.5.0           Hmisc_5.2-2                
-    ## INFO [2025-05-27 18:27:33] [15] hexbin_1.28.5               ggrepel_0.9.6              
-    ## INFO [2025-05-27 18:27:33] [17] batchCorr_0.2.5             notame_0.3.1               
-    ## INFO [2025-05-27 18:27:33] [19] futile.logger_1.4.3         Biobase_2.66.0             
-    ## INFO [2025-05-27 18:27:33] [21] BiocGenerics_0.52.0         gplots_3.2.0               
-    ## INFO [2025-05-27 18:27:33] [23] here_1.0.1                  patchwork_1.3.0            
-    ## INFO [2025-05-27 18:27:33] [25] lubridate_1.9.4             forcats_1.0.0              
-    ## INFO [2025-05-27 18:27:33] [27] stringr_1.5.1               dplyr_1.1.4                
-    ## INFO [2025-05-27 18:27:33] [29] purrr_1.0.2                 readr_2.1.5                
-    ## INFO [2025-05-27 18:27:33] [31] tidyr_1.3.1                 tibble_3.2.1               
-    ## INFO [2025-05-27 18:27:33] [33] tidyverse_2.0.0             magrittr_2.0.3             
-    ## INFO [2025-05-27 18:27:33] [35] doParallel_1.0.17           ggplot2_3.5.1              
-    ## INFO [2025-05-27 18:27:33] [37] iterators_1.0.14            foreach_1.5.2              
-    ## INFO [2025-05-27 18:27:33] [39] shiny_1.10.0                devtools_2.4.5             
-    ## INFO [2025-05-27 18:27:33] [41] usethis_3.1.0              
-    ## INFO [2025-05-27 18:27:33] 
-    ## INFO [2025-05-27 18:27:33] loaded via a namespace (and not attached):
-    ## INFO [2025-05-27 18:27:33]   [1] later_1.4.1             bitops_1.0-9            rpart_4.1.23           
-    ## INFO [2025-05-27 18:27:33]   [4] lifecycle_1.0.4         rstatix_0.7.2           gert_2.1.4             
-    ## INFO [2025-05-27 18:27:33]   [7] rprojroot_2.0.4         lattice_0.22-6          MASS_7.3-61            
-    ## INFO [2025-05-27 18:27:33]  [10] credentials_2.0.2       backports_1.5.0         openxlsx_4.2.7.1       
-    ## INFO [2025-05-27 18:27:33]  [13] sass_0.4.9              rmarkdown_2.29          yaml_2.3.10            
-    ## INFO [2025-05-27 18:27:33]  [16] remotes_2.5.0           httpuv_1.6.15           doRNG_1.8.6.1          
-    ## INFO [2025-05-27 18:27:33]  [19] zip_2.3.1               askpass_1.2.1           sessioninfo_1.2.2      
-    ## INFO [2025-05-27 18:27:33]  [22] pkgbuild_1.4.6          RColorBrewer_1.1-3      juicyjuice_0.1.0       
-    ## INFO [2025-05-27 18:27:33]  [25] abind_1.4-8             pkgload_1.4.0           zlibbioc_1.52.0        
-    ## INFO [2025-05-27 18:27:33]  [28] itertools_0.1-3         nnet_7.3-19             circlize_0.4.16        
-    ## INFO [2025-05-27 18:27:33]  [31] GenomeInfoDbData_1.2.13 missForest_1.5          commonmark_1.9.2       
-    ## INFO [2025-05-27 18:27:33]  [34] codetools_0.2-20        DelayedArray_0.32.0     xml2_1.3.6             
-    ## INFO [2025-05-27 18:27:33]  [37] shape_1.4.6.1           tidyselect_1.2.1        UCSC.utils_1.2.0       
-    ## INFO [2025-05-27 18:27:33]  [40] farver_2.1.2            base64enc_0.1-3         jsonlite_1.8.9         
-    ## INFO [2025-05-27 18:27:33]  [43] GetoptLong_1.0.5        ellipsis_0.3.2          Formula_1.2-5          
-    ## INFO [2025-05-27 18:27:33]  [46] tools_4.4.2             Rcpp_1.0.14             glue_1.8.0             
-    ## INFO [2025-05-27 18:27:33]  [49] gridExtra_2.3           SparseArray_1.6.1       xfun_0.50              
-    ## INFO [2025-05-27 18:27:33]  [52] withr_3.0.2             formatR_1.14            fastmap_1.2.0          
-    ## INFO [2025-05-27 18:27:33]  [55] AlgDesign_1.2.1.1       openssl_2.3.1           caTools_1.18.3         
-    ## INFO [2025-05-27 18:27:33]  [58] digest_0.6.37           timechange_0.3.0        R6_2.5.1               
-    ## INFO [2025-05-27 18:27:33]  [61] mime_0.12               colorspace_2.1-1        gtools_3.9.5           
-    ## INFO [2025-05-27 18:27:33]  [64] markdown_1.13           ggsci_3.2.0             generics_0.1.3         
-    ## INFO [2025-05-27 18:27:33]  [67] data.table_1.16.4       httr_1.4.7              htmlwidgets_1.6.4      
-    ## INFO [2025-05-27 18:27:33]  [70] S4Arrays_1.6.0          pkgconfig_2.0.3         gtable_0.3.6           
-    ## INFO [2025-05-27 18:27:33]  [73] impute_1.80.0           XVector_0.46.0          htmltools_0.5.8.1      
-    ## INFO [2025-05-27 18:27:33]  [76] carData_3.0-5           profvis_0.4.0           clue_0.3-66            
-    ## INFO [2025-05-27 18:27:33]  [79] scales_1.3.0            png_0.1-8               knitr_1.49             
-    ## INFO [2025-05-27 18:27:33]  [82] lambda.r_1.2.4          rstudioapi_0.17.1       rjson_0.2.23           
-    ## INFO [2025-05-27 18:27:33]  [85] tzdb_0.4.0              reshape2_1.4.4          checkmate_2.3.2        
-    ## INFO [2025-05-27 18:27:33]  [88] nlme_3.1-166            curl_6.1.0              GlobalOptions_0.1.2    
-    ## INFO [2025-05-27 18:27:33]  [91] cachem_1.1.0            KernSmooth_2.23-24      miniUI_0.1.1.1         
-    ## INFO [2025-05-27 18:27:33]  [94] foreign_0.8-87          pillar_1.10.1           vctrs_0.6.5            
-    ## INFO [2025-05-27 18:27:33]  [97] pcaMethods_1.98.0       ggpubr_0.6.0            urlchecker_1.0.1       
-    ## INFO [2025-05-27 18:27:33] [100] promises_1.3.2          randomForest_4.7-1.2    car_3.1-3              
-    ## INFO [2025-05-27 18:27:33] [103] xtable_1.8-4            cluster_2.1.6           htmlTable_2.4.3        
-    ## INFO [2025-05-27 18:27:33] [106] evaluate_1.0.3          magick_2.8.5            cli_3.6.3              
-    ## INFO [2025-05-27 18:27:33] [109] compiler_4.4.2          futile.options_1.0.1    rlang_1.1.4            
-    ## INFO [2025-05-27 18:27:33] [112] crayon_1.5.3            rngtools_1.5.2          ggsignif_0.6.4         
-    ## INFO [2025-05-27 18:27:33] [115] labeling_0.4.3          plyr_1.8.9              fs_1.6.5               
-    ## INFO [2025-05-27 18:27:33] [118] stringi_1.8.4           viridisLite_0.4.2       munsell_0.5.1          
-    ## INFO [2025-05-27 18:27:33] [121] V8_6.0.2                Matrix_1.7-1            hms_1.1.3              
-    ## INFO [2025-05-27 18:27:33] [124] broom_1.0.7             igraph_2.1.3            memoise_2.0.1
+    ## INFO [2025-06-11 15:37:43] R version 4.4.2 (2024-10-31 ucrt)
+    ## INFO [2025-06-11 15:37:43] Platform: x86_64-w64-mingw32/x64
+    ## INFO [2025-06-11 15:37:43] Running under: Windows 11 x64 (build 26100)
+    ## INFO [2025-06-11 15:37:43] 
+    ## INFO [2025-06-11 15:37:43] Matrix products: default
+    ## INFO [2025-06-11 15:37:43] 
+    ## INFO [2025-06-11 15:37:43] 
+    ## INFO [2025-06-11 15:37:43] locale:
+    ## INFO [2025-06-11 15:37:43] [1] LC_COLLATE=Spanish_Mexico.utf8  LC_CTYPE=Spanish_Mexico.utf8   
+    ## INFO [2025-06-11 15:37:43] [3] LC_MONETARY=Spanish_Mexico.utf8 LC_NUMERIC=C                   
+    ## INFO [2025-06-11 15:37:43] [5] LC_TIME=Spanish_Mexico.utf8    
+    ## INFO [2025-06-11 15:37:43] 
+    ## INFO [2025-06-11 15:37:43] time zone: America/Guayaquil
+    ## INFO [2025-06-11 15:37:43] tzcode source: internal
+    ## INFO [2025-06-11 15:37:43] 
+    ## INFO [2025-06-11 15:37:43] attached base packages:
+    ## INFO [2025-06-11 15:37:43]  [1] grid      stats4    parallel  stats     graphics  grDevices utils    
+    ## INFO [2025-06-11 15:37:43]  [8] datasets  methods   base     
+    ## INFO [2025-06-11 15:37:43] 
+    ## INFO [2025-06-11 15:37:43] other attached packages:
+    ## INFO [2025-06-11 15:37:43]  [1] cowplot_1.1.3               colorRamp2_0.0.1           
+    ## INFO [2025-06-11 15:37:43]  [3] ComplexHeatmap_2.22.0       gt_0.11.1                  
+    ## INFO [2025-06-11 15:37:43]  [5] agricolae_1.3-7             pmp_1.18.0                 
+    ## INFO [2025-06-11 15:37:43]  [7] SummarizedExperiment_1.36.0 GenomicRanges_1.58.0       
+    ## INFO [2025-06-11 15:37:43]  [9] GenomeInfoDb_1.42.1         IRanges_2.40.1             
+    ## INFO [2025-06-11 15:37:43] [11] S4Vectors_0.44.0            MatrixGenerics_1.18.1      
+    ## INFO [2025-06-11 15:37:43] [13] matrixStats_1.5.0           Hmisc_5.2-2                
+    ## INFO [2025-06-11 15:37:43] [15] hexbin_1.28.5               ggrepel_0.9.6              
+    ## INFO [2025-06-11 15:37:43] [17] batchCorr_0.2.5             notame_0.3.1               
+    ## INFO [2025-06-11 15:37:43] [19] futile.logger_1.4.3         Biobase_2.66.0             
+    ## INFO [2025-06-11 15:37:43] [21] BiocGenerics_0.52.0         gplots_3.2.0               
+    ## INFO [2025-06-11 15:37:43] [23] here_1.0.1                  patchwork_1.3.0            
+    ## INFO [2025-06-11 15:37:43] [25] lubridate_1.9.4             forcats_1.0.0              
+    ## INFO [2025-06-11 15:37:43] [27] stringr_1.5.1               dplyr_1.1.4                
+    ## INFO [2025-06-11 15:37:43] [29] purrr_1.0.2                 readr_2.1.5                
+    ## INFO [2025-06-11 15:37:43] [31] tidyr_1.3.1                 tibble_3.2.1               
+    ## INFO [2025-06-11 15:37:43] [33] tidyverse_2.0.0             magrittr_2.0.3             
+    ## INFO [2025-06-11 15:37:43] [35] doParallel_1.0.17           ggplot2_3.5.1              
+    ## INFO [2025-06-11 15:37:43] [37] iterators_1.0.14            foreach_1.5.2              
+    ## INFO [2025-06-11 15:37:43] [39] shiny_1.10.0                devtools_2.4.5             
+    ## INFO [2025-06-11 15:37:43] [41] usethis_3.1.0              
+    ## INFO [2025-06-11 15:37:43] 
+    ## INFO [2025-06-11 15:37:43] loaded via a namespace (and not attached):
+    ## INFO [2025-06-11 15:37:43]   [1] later_1.4.1             bitops_1.0-9            rpart_4.1.23           
+    ## INFO [2025-06-11 15:37:43]   [4] lifecycle_1.0.4         rstatix_0.7.2           gert_2.1.4             
+    ## INFO [2025-06-11 15:37:43]   [7] rprojroot_2.0.4         lattice_0.22-6          MASS_7.3-61            
+    ## INFO [2025-06-11 15:37:43]  [10] credentials_2.0.2       backports_1.5.0         openxlsx_4.2.7.1       
+    ## INFO [2025-06-11 15:37:43]  [13] sass_0.4.9              rmarkdown_2.29          yaml_2.3.10            
+    ## INFO [2025-06-11 15:37:43]  [16] remotes_2.5.0           httpuv_1.6.15           doRNG_1.8.6.1          
+    ## INFO [2025-06-11 15:37:43]  [19] zip_2.3.1               askpass_1.2.1           sessioninfo_1.2.2      
+    ## INFO [2025-06-11 15:37:43]  [22] pkgbuild_1.4.6          RColorBrewer_1.1-3      juicyjuice_0.1.0       
+    ## INFO [2025-06-11 15:37:43]  [25] abind_1.4-8             pkgload_1.4.0           zlibbioc_1.52.0        
+    ## INFO [2025-06-11 15:37:43]  [28] itertools_0.1-3         nnet_7.3-19             circlize_0.4.16        
+    ## INFO [2025-06-11 15:37:43]  [31] GenomeInfoDbData_1.2.13 missForest_1.5          commonmark_1.9.2       
+    ## INFO [2025-06-11 15:37:43]  [34] codetools_0.2-20        DelayedArray_0.32.0     xml2_1.3.6             
+    ## INFO [2025-06-11 15:37:43]  [37] shape_1.4.6.1           tidyselect_1.2.1        UCSC.utils_1.2.0       
+    ## INFO [2025-06-11 15:37:43]  [40] farver_2.1.2            base64enc_0.1-3         jsonlite_1.8.9         
+    ## INFO [2025-06-11 15:37:43]  [43] GetoptLong_1.0.5        ellipsis_0.3.2          Formula_1.2-5          
+    ## INFO [2025-06-11 15:37:43]  [46] systemfonts_1.1.0       tools_4.4.2             ragg_1.3.3             
+    ## INFO [2025-06-11 15:37:43]  [49] Rcpp_1.0.14             glue_1.8.0              gridExtra_2.3          
+    ## INFO [2025-06-11 15:37:43]  [52] SparseArray_1.6.1       xfun_0.50               withr_3.0.2            
+    ## INFO [2025-06-11 15:37:43]  [55] formatR_1.14            fastmap_1.2.0           AlgDesign_1.2.1.1      
+    ## INFO [2025-06-11 15:37:43]  [58] openssl_2.3.1           caTools_1.18.3          digest_0.6.37          
+    ## INFO [2025-06-11 15:37:43]  [61] timechange_0.3.0        R6_2.5.1                mime_0.12              
+    ## INFO [2025-06-11 15:37:43]  [64] textshaping_0.4.1       colorspace_2.1-1        gtools_3.9.5           
+    ## INFO [2025-06-11 15:37:43]  [67] markdown_1.13           ggsci_3.2.0             generics_0.1.3         
+    ## INFO [2025-06-11 15:37:43]  [70] data.table_1.16.4       httr_1.4.7              htmlwidgets_1.6.4      
+    ## INFO [2025-06-11 15:37:43]  [73] S4Arrays_1.6.0          pkgconfig_2.0.3         gtable_0.3.6           
+    ## INFO [2025-06-11 15:37:43]  [76] impute_1.80.0           XVector_0.46.0          sys_3.4.3              
+    ## INFO [2025-06-11 15:37:43]  [79] htmltools_0.5.8.1       carData_3.0-5           profvis_0.4.0          
+    ## INFO [2025-06-11 15:37:43]  [82] clue_0.3-66             scales_1.3.0            png_0.1-8              
+    ## INFO [2025-06-11 15:37:43]  [85] knitr_1.49              lambda.r_1.2.4          rstudioapi_0.17.1      
+    ## INFO [2025-06-11 15:37:43]  [88] rjson_0.2.23            tzdb_0.4.0              reshape2_1.4.4         
+    ## INFO [2025-06-11 15:37:43]  [91] curl_6.1.0              checkmate_2.3.2         nlme_3.1-166           
+    ## INFO [2025-06-11 15:37:43]  [94] GlobalOptions_0.1.2     cachem_1.1.0            KernSmooth_2.23-24     
+    ## INFO [2025-06-11 15:37:43]  [97] miniUI_0.1.1.1          foreign_0.8-87          pillar_1.10.1          
+    ## INFO [2025-06-11 15:37:43] [100] vctrs_0.6.5             pcaMethods_1.98.0       ggpubr_0.6.0           
+    ## INFO [2025-06-11 15:37:43] [103] urlchecker_1.0.1        promises_1.3.2          randomForest_4.7-1.2   
+    ## INFO [2025-06-11 15:37:43] [106] car_3.1-3               xtable_1.8-4            cluster_2.1.6          
+    ## INFO [2025-06-11 15:37:43] [109] htmlTable_2.4.3         evaluate_1.0.3          magick_2.8.5           
+    ## INFO [2025-06-11 15:37:43] [112] cli_3.6.3               compiler_4.4.2          futile.options_1.0.1   
+    ## INFO [2025-06-11 15:37:43] [115] rlang_1.1.4             crayon_1.5.3            rngtools_1.5.2         
+    ## INFO [2025-06-11 15:37:43] [118] ggsignif_0.6.4          labeling_0.4.3          plyr_1.8.9             
+    ## INFO [2025-06-11 15:37:43] [121] fs_1.6.5                stringi_1.8.4           viridisLite_0.4.2      
+    ## INFO [2025-06-11 15:37:43] [124] munsell_0.5.1           V8_6.0.2                Matrix_1.7-1           
+    ## INFO [2025-06-11 15:37:43] [127] hms_1.1.3               broom_1.0.7             igraph_2.1.3           
+    ## INFO [2025-06-11 15:37:43] [130] memoise_2.0.1

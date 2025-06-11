@@ -1,5 +1,5 @@
 ---
-title: "LC-MS/MS profiling and characterization of caffeoylquinic acids isomers in *Ilex guayusa* under different collection sites, plant age, and sunlight exposure"
+title: "Negative polarity: LC-MS/MS profiling and characterization of caffeoylquinic acids isomers in *Ilex guayusa* under different collection sites, plant age, and sunlight exposure"
 author: "Thomas Garzon, Jefferson Pastuña"
 date: "2025-05-27"
 output:
@@ -509,10 +509,10 @@ vc_plot
 
 ```{r}
 # Save plot
-#ggsave('../Result/notame_results/Figuras/Volcano/PDF/figure_2b.pdf',
-#       width = 8, height = 7, device='pdf', dpi="print")
-#ggsave('../Result/notame_results/Figuras/Volcano/PNG/figure_2b.png',
-#       width = 8, height = 7, device='png', dpi="print")
+ggsave('../Result/notame_results/Figuras/Volcano/PDF/figure_2b.pdf',
+       width = 8, height = 7, device='pdf', dpi="print")
+ggsave('../Result/notame_results/Figuras/Volcano/PNG/figure_2b.png',
+       width = 8, height = 7, device='png', dpi="print")
 ```
 
 ### Sample volcano plot
@@ -654,10 +654,10 @@ sp_vc_plot
 
 ```{r}
 # Save plot
-#ggsave(filename = "../Result/notame_results/Figuras/Volcano/PDF/Figure_s5.pdf", plot = sp_vc_plot,
-#       width = 7, height = 8, units = "in", dpi = "print")
-#ggsave(filename = "../Result/notame_results/Figuras/Volcano/PNG/Figure_s5.png", plot = sp_vc_plot,
-#       width = 7, height = 8, units = "in", dpi = "print")
+ggsave(filename = "../Result/notame_results/Figuras/Volcano/PDF/Figure_s5.pdf", plot = sp_vc_plot,
+       width = 7, height = 8, units = "in", dpi = "print")
+ggsave(filename = "../Result/notame_results/Figuras/Volcano/PNG/Figure_s5.png", plot = sp_vc_plot,
+       width = 7, height = 8, units = "in", dpi = "print")
 ```
 
 # Tukey test
@@ -1084,8 +1084,8 @@ ggplot(scores,
   scale_shape_manual(values = custom_shapes)
 
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/PCA_general.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/PCA_general.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/PCA_general.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/PCA_general.png", width = 8, height = 6, units = "in", dpi = "print")
 
 ```
 
@@ -1137,8 +1137,8 @@ figure_1a <- ggplot(scores,
 figure_1a
 
 # Save plot
-#ggsave("../Result/notame_results//Figuras/PCA/PDF/figure_1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1a.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results//Figuras/PCA/PDF/figure_1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1a.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Age factor PCA
@@ -1191,8 +1191,8 @@ figure_1b <- ggplot(scores,
 figure_1b
 
 # Save Plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1b.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1b.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Location factor PCA
@@ -1243,8 +1243,8 @@ figure_1c <- ggplot(scores,
 figure_1c
 
 # Save Plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1c.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1c.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting a loading PCA result.
@@ -1291,8 +1291,8 @@ figure_1d
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_1d.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_1d.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Alto Pano location PCA
@@ -1366,8 +1366,8 @@ figure_s1a
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1a.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1a.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting the Alto Pano loading PCA result.
@@ -1413,8 +1413,8 @@ figure_s1d
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1d.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1d.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1d.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Alto Tena location PCA
@@ -1485,8 +1485,8 @@ figure_s1b
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1b.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1b.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting the Alto Tena loading PCA result.
@@ -1532,8 +1532,8 @@ figure_s1e
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1e.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1e.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1e.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1e.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Talag location PCA
@@ -1604,8 +1604,8 @@ figure_s1c
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1c.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_s1c.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_s1c.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 Plotting the Talag loading PCA result.
@@ -1651,8 +1651,8 @@ figure_s1f
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1f.pdf", width = 8, height = 6, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1f.png", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1f.pdf", width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1f.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ## Heatmap and HCA
@@ -1849,8 +1849,8 @@ gcms_hm
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/HCA/PDF/figure_s1f.pdf", width = 8, height = 8, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/HCA/PNG/figure_s1f.png", width = 8, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PDF/figure_s1f.pdf", width = 8, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PNG/figure_s1f.png", width = 8, height = 8, units = "in", dpi = "print")
 ```
 
 ### Heatmap and HCA of sample
@@ -1988,8 +1988,8 @@ gcms_hm_spl
 
 ```{r}
 # Save plot
-#ggsave("../Result/notame_results/Figuras/HCA/PDF/HCA_samples.pdf", width = 10, height = 8, units = "in", dpi = "print")
-#ggsave("../Result/notame_results/Figuras/HCA/PNG/HCA_samples.png", width = 10, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PDF/HCA_samples.pdf", width = 10, height = 8, units = "in", dpi = "print")
+ggsave("../Result/notame_results/Figuras/HCA/PNG/HCA_samples.png", width = 10, height = 8, units = "in", dpi = "print")
 ```
 
 Finish a record.
