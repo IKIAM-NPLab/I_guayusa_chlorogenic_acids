@@ -42,3 +42,25 @@ ggsave(filename = "../Result/venn_results/Figuras/PDF/figure_union.pdf", plot = 
 # Exporting (*.png) file
 ggsave(filename = "../Result/venn_results/Figuras/PNG/figure_union.png", plot = figure_unionsuppone,
        width = 175, height = 250, units = "mm", dpi = 300, scale = 2.5)
+
+
+
+
+figure_union_supp_2 <- arrangeGrob(barras_filtradas,
+                                   barras_filtradas_neg,
+                                   layout_matrix = rbind(c(1,1),
+                                                         c(2,2)))
+# Adding label to the figures
+figure_unionsuppone_2 <- ggpubr::as_ggplot(figure_union_supp_2) +
+  cowplot::draw_plot_label(
+    label = LETTERS[1:2],
+    x = c(0.03, 0.03),  # columnas relativas
+    y = c(0.98, 0.46),  # filas relativas desde arriba
+    size = 14
+  )
+# Exporting (*.pdf) file
+ggsave(filename = "../Result/venn_results/Figuras/PDF/figure_union_2.pdf", plot = figure_unionsuppone_2,
+       width = 175, height = 250, units = "mm", dpi = 300, scale = 2.5)
+# Exporting (*.png) file
+ggsave(filename = "../Result/venn_results/Figuras/PNG/figure_union_2.png", plot = figure_unionsuppone_2,
+       width = 175, height = 250, units = "mm", dpi = 300, scale = 2.5)

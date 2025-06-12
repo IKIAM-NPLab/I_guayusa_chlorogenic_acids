@@ -165,8 +165,8 @@ barras1_pos <- ggplot(conteos_barras, aes(x = Grupo, y = Conteo, fill = Grupo)) 
   geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
   scale_fill_manual(values = color_rojo) +
   labs(
-    title = "Conteo total y coincidencias únicas entre grupos (modo positivo)",
-    y = "Número de elementos", x = "Grupo"
+    title = "Total count and unique matches between groups (positive mode)",
+    y = "Number of elements", x = "Group"
   ) +
   theme_minimal(base_size = 14)
 
@@ -180,6 +180,47 @@ barras1_pos
 # Save plot
 ggsave("../Result/venn_results/Figuras/PDF/Barras1_p.pdf", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
 ggsave("../Result/venn_results/Figuras/PNG/Barras1_p.png", plot = barras1_pos, width = 8, height = 6, units = "in", dpi = "print")
+```
+
+``` r
+# ----------------------
+# Filtrar solo los grupos de interés
+# ----------------------
+
+# Crear dataframe solo con los grupos deseados
+conteos_filtrados <- conteos_barras %>%
+  filter(Grupo %in% c("5_m", "5_sm", "15_m", "15_sm")) %>%
+  mutate(Grupo = factor(Grupo, levels = c("15_m", "15_sm", "5_m", "5_sm")))
+
+# Definir la paleta de colores solo para esos grupos
+color_rojo_filtrado <- c(
+  "15_m" = "#67000D",
+  "15_sm" = "#FB6A4A",
+  "5_m" = "#67000D",
+  "5_sm" = "#FB6A4A"
+)
+
+# Crear el gráfico solo con los grupos seleccionados
+barras_filtradas <- ggplot(conteos_filtrados, aes(x = Grupo, y = Conteo, fill = Grupo)) +
+  geom_bar(stat = "identity", width = 0.6, show.legend = FALSE) +
+  geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
+  scale_fill_manual(values = color_rojo_filtrado) +
+  labs(
+    title = "Total count of items per group (positive mode)",
+    y = "Number of elements", x = "Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+# Mostrar gráfico
+barras_filtradas
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
+# Guardar gráfico filtrado
+ggsave("../Result/venn_results/Figuras/PDF/Barras_filtradas_p.pdf", plot = barras_filtradas, width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/Barras_filtradas_p.png", plot = barras_filtradas, width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ``` r
@@ -213,7 +254,7 @@ venn1_neg <- venn.diagram(
 grid.newpage(); grid.draw(venn1_neg)
 ```
 
-![](grafica_venn_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](grafica_venn_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 ggsave("../Result/venn_results/Figuras/PDF/venn1_n.pdf", plot = venn1_neg, width = 5, height = 4, units = "in", dpi = "print")
@@ -232,7 +273,7 @@ venn2_neg <- venn.diagram(
 grid.newpage(); grid.draw(venn2_neg)
 ```
 
-![](grafica_venn_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](grafica_venn_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 ggsave("../Result/venn_results/Figuras/PDF/venn2_n.pdf", plot = venn2_neg, width = 5, height = 4, units = "in", dpi = "print")
@@ -251,7 +292,7 @@ venn3_neg <- venn.diagram(
 grid.newpage(); grid.draw(venn3_neg)
 ```
 
-![](grafica_venn_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](grafica_venn_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
 ggsave("../Result/venn_results/Figuras/PDF/venn3_n.pdf", plot = venn3_neg, width = 5, height = 4, units = "in", dpi = "print")
@@ -305,17 +346,58 @@ barras1_neg <- ggplot(conteos_barras_neg, aes(x = Grupo, y = Conteo, fill = Grup
   geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
   scale_fill_manual(values = color_azul) +
   labs(
-    title = "Conteo total y coincidencias únicas entre grupos (modo negativo)",
-    y = "Número de elementos", x = "Grupo"
+    title = "Total count and unique matches between groups (negative mode)",
+    y = "Number of elements", x = "Group"
   ) +
   theme_minimal(base_size = 14)
 
 barras1_neg
 ```
 
-![](grafica_venn_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](grafica_venn_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ``` r
 ggsave("../Result/venn_results/Figuras/PDF/barras1_neg.pdf", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
 ggsave("../Result/venn_results/Figuras/PNG/barras1_neg.png", plot = barras1_neg, width = 8, height = 6, units = "in", dpi = "print")
+```
+
+``` r
+# ----------------------
+# Filtrar solo los grupos individuales deseados (modo negativo)
+# ----------------------
+
+# Crear un nuevo dataframe con los grupos individuales de interés
+conteos_filtrados_neg <- conteos_barras_neg %>%
+  filter(Grupo %in% c("5_m", "5_sm", "15_m", "15_sm")) %>%
+  mutate(Grupo = factor(Grupo, levels = c("15_m", "15_sm", "5_m", "5_sm")))
+
+# Definir la paleta de colores para estos grupos
+color_azul_filtrado <- c(
+  "15_m" = "#08306B",
+  "15_sm" = "#4292C6",
+  "5_m" = "#08306B",
+  "5_sm" = "#6BAED6"
+)
+
+# Crear gráfico con solo los grupos seleccionados
+barras_filtradas_neg <- ggplot(conteos_filtrados_neg, aes(x = Grupo, y = Conteo, fill = Grupo)) +
+  geom_bar(stat = "identity", width = 0.6, show.legend = FALSE) +
+  geom_text(aes(label = Conteo), vjust = -0.4, size = 5) +
+  scale_fill_manual(values = color_azul_filtrado) +
+  labs(
+    title = "Total count of items per group (negative mode)",
+    y = "Number of elements", x = "Group"
+  ) +
+  theme_minimal(base_size = 14)
+
+# Mostrar gráfico
+barras_filtradas_neg
+```
+
+![](grafica_venn_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+# Guardar gráfico en PDF y PNG
+ggsave("../Result/venn_results/Figuras/PDF/Barras_filtradas_neg.pdf", plot = barras_filtradas_neg, width = 8, height = 6, units = "in", dpi = "print")
+ggsave("../Result/venn_results/Figuras/PNG/Barras_filtradas_neg.png", plot = barras_filtradas_neg, width = 8, height = 6, units = "in", dpi = "print")
 ```
