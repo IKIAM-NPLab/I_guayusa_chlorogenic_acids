@@ -1393,7 +1393,7 @@ figure_s1d_p <- ggplot(b_loadings, aes(PC1, PC2)) +
                             box.padding = 0.37,
                             label.padding = 0.22,
                             label.r = 0.30,
-                            cex = 2.5,
+                            cex = 3.5,
                             max.overlaps = 7) +
   guides(x=guide_axis(title = "PC1 (32.40 %)"),
          y=guide_axis(title = "PC2 (21.22 %)")) +
@@ -1512,7 +1512,7 @@ figure_s1e_p <- ggplot(c_loadings, aes(PC1, PC2)) +
                             box.padding = 0.37,
                             label.padding = 0.22,
                             label.r = 0.30,
-                            cex = 2.5,
+                            cex = 3.5,
                             max.overlaps = 7) +
   guides(x=guide_axis(title = "PC1 (24.53 %)"),
          y=guide_axis(title = "PC2 (16.96 %)")) +
@@ -1631,7 +1631,7 @@ figure_s1f_p <- ggplot(a_loadings, aes(PC1, PC2)) +
                             box.padding = 0.37,
                             label.padding = 0.22,
                             label.r = 0.30,
-                            cex = 2.5,
+                            cex = 3.5,
                             max.overlaps = 7) +
   guides(x=guide_axis(title = "PC1 (31.23 %)"),
          y=guide_axis(title = "PC2 (21.11 %)")) +

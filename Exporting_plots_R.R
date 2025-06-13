@@ -132,6 +132,31 @@ ggsave(filename = "../Result/notame_results/Figuras/figure_s3.pdf", plot = figur
 ggsave(filename = "../Result/notame_results/Figuras/figure_s3.png", plot = figure_sthree,
      width = 175, height = 120, units = "mm", dpi = 300, scale = 2.5)
 
+### PCA merge locations
+
+
+
+# Figure matrix
+figure_s4_p <- arrangeGrob(figure_s1a,
+                           figure_s1b,
+                           figure_s1c,
+                           figure_s1d,
+                           figure_s1e,
+                           figure_s1f,
+                           layout_matrix = rbind(c(1, 2, 3),
+                                                 c(4, 5, 6)))
+# Adding label to the figures
+figure_sfour <- ggpubr::as_ggplot(figure_s4) +
+  draw_plot_label(label = LETTERS[1:6],
+                  x = c(0, 0.332, 0.665, 0, 0.332, 0.665),
+                  y = c(.99, .99, .99, .490, .490, .490))
+# Exporting (*.pdf) file
+ggsave(filename = "../Result/notame_results/Figuras/figure_s4.pdf", plot = figure_sfour,
+       width = 235, height = 140, units = "mm", dpi = 300, scale = 2.5)
+# Exporting (*.png) file
+ggsave(filename = "../Result/notame_results/Figuras/figure_s4.png", plot = figure_sfour,
+       width = 235, height = 140, units = "mm", dpi = 300, scale = 2.5)
+
 ## Age plots
 
 
@@ -289,6 +314,31 @@ ggsave(filename = "../Result/notame_results/Figuras/figure_s3p.pdf", plot = figu
 # Exporting (*.png) file
 ggsave(filename = "../Result/notame_results/Figuras/figure_s3p.png", plot = figure_sthreep,
        width = 175, height = 120, units = "mm", dpi = 300, scale = 2.5)
+
+### PCA merge locations
+
+
+
+# Figure matrix
+figure_s4_p <- arrangeGrob(figure_s1a_p,
+                         figure_s1b_p,
+                         figure_s1c_p,
+                         figure_s1d_p,
+                         figure_s1e_p,
+                         figure_s1f_p,
+                         layout_matrix = rbind(c(1, 2, 3),
+                                               c(4, 5, 6)))
+# Adding label to the figures
+figure_sfour_p <- ggpubr::as_ggplot(figure_s4_p) +
+  draw_plot_label(label = LETTERS[1:6],
+                  x = c(0, 0.332, 0.665, 0, 0.332, 0.665),
+                  y = c(.99, .99, .99, .490, .490, .490))
+# Exporting (*.pdf) file
+ggsave(filename = "../Result/notame_results/Figuras/figure_s4_p.pdf", plot = figure_sfour_p,
+       width = 235, height = 140, units = "mm", dpi = 300, scale = 2.1)
+# Exporting (*.png) file
+ggsave(filename = "../Result/notame_results/Figuras/figure_s4_p.png", plot = figure_sfour_p,
+       width = 235, height = 140, units = "mm", dpi = 300, scale = 2.1)
 
 
 ## Age plots
