@@ -15,21 +15,23 @@ library(gridExtra)
 figure_1 <- arrangeGrob(figure_1a,
                         figure_1b,
                         figure_1c,
+                        figure_s1g,
+                        figure_s1h,
                         figure_1d,
                         layout_matrix = rbind(c(1, 2, 3),
-                                              c(4, 4, 4),
-                                              c(4, 4, 4)))
+                                              c(4, 5, 6),
+                                              c(4, 5, 6)))
 # Adding label to the figures
 figure_one <- ggpubr::as_ggplot(figure_1) +
-  draw_plot_label(label = LETTERS[1:4],
-                  x = c(0, 0.332, 0.665, 0),
-                  y = c(.99, .99, .99, .656))
+  draw_plot_label(label = LETTERS[1:6],
+                  x = c(0.01, 0.33, 0.67, 0.01, 0.33, 0.67),
+                  y = c(0.99, 0.98, 0.98, 0.65, 0.65, 0.65))
 # Exporting (*.pdf) file
 ggsave(filename = "../Result/notame_results/Figuras/figure_1_glog.pdf", plot = figure_one,
-      width = 175, height = 120, units = "mm", dpi = 300, scale = 2.5)
+      width = 205, height = 120, units = "mm", dpi = 300, scale = 2.5)
 # Exporting (*.png) file
 ggsave(filename = "../Result/notame_results/Figuras/figure_1_glog.png", plot = figure_one,
-      width = 175, height = 120, units = "mm", dpi = 300, scale = 2.5)
+      width = 205, height = 120, units = "mm", dpi = 300, scale = 2.5)
 
 #PCA score plots of different factors.
 
@@ -193,25 +195,27 @@ ggsave(filename = "../Result/notame_results/Figuras/figure_2.png", plot = figure
 library(gridExtra)
 # Figure matrix
 figure_1p <- arrangeGrob(figure_1a_p,
-                        figure_1b_p,
-                        figure_1c_p,
-                        figure_1d_p,
-                        layout_matrix = rbind(c(1, 2, 3),
-                                              c(4, 4, 4),
-                                              c(4, 4, 4)))
+                         figure_1b_p,
+                         figure_1c_p,
+                         figure_s1g_p,
+                         figure_s1h_p,
+                         figure_1d_p,
+                         layout_matrix = rbind(c(1, 2, 3),
+                                               c(4, 5, 6),
+                                               c(4, 5, 6)))
 # Adding label to the figures
 figure_onep <- ggpubr::as_ggplot(figure_1p) +
-  draw_plot_label(label = LETTERS[1:4],
-                  x = c(0, 0.332, 0.665, 0),
-                  y = c(.99, .99, .99, .656))
+  draw_plot_label(label = c("G", "H", "I", "J", "K", "L"),
+                  x = c(0.008, 0.33, 0.67, 0.009, 0.33, 0.67),
+                  y = c(0.99, 0.98, 0.98, 0.66, 0.65, 0.65))
 
 # Exporting (*.pdf) file
 ggsave(filename = "../Result/notame_results/Figuras/figure_1_glog_p.pdf", plot = figure_onep,
-      width = 175, height = 120, units = "mm", dpi = 300, scale = 2.5)
+      width = 200, height = 120, units = "mm", dpi = 300, scale = 2.5)
 
 # Exporting (*.png) file
 ggsave(filename = "../Result/notame_results/Figuras/figure_1_glog_p.png", plot = figure_onep,
-       width = 175, height = 120, units = "mm", dpi = 300, scale = 2.5)
+       width = 200, height = 120, units = "mm", dpi = 300, scale = 2.5)
 
 #PCA score plots of different factors.
 
@@ -375,15 +379,16 @@ figure_union_1 <- arrangeGrob(figure_one,
                                               c(2, 2)))
 # Adding label to the figures
 figure_uninonone <- ggpubr::as_ggplot(figure_union_1) +
-  draw_plot_label(label = c("[M-H]-", "[M+H]+"),
-                  x = c(0.02, 0.02),
-                  y = c(.83, 0.33))
+  draw_plot_label(label = c("[M-H]-", "[M-H]-", "[M-H]-", "[M-H]-", "[M-H]-", "[M-H]-",
+                            "[M+H]+", "[M+H]+", "[M+H]+", "[M+H]+", "[M+H]+", "[M+H]+"),
+                  x = c(0.01, 0.34, 0.676, 0.01, 0.342, 0.676, 0.01, 0.34, 0.676, 0.01, 0.342, 0.676),
+                  y = c(0.999, 0.999, 0.999, .83, .83, .83, 0.498, 0.498, 0.498, 0.33, 0.33, 0.33))
 # Exporting (*.pdf) file
 ggsave(filename = "../Result/notame_results/Figuras/figure_union_1.pdf", plot = figure_uninonone,
-       width = 175, height = 240, units = "mm", dpi = 300, scale = 2.5)
+       width = 200, height = 240, units = "mm", dpi = 300, scale = 2.5)
 # Exporting (*.png) file
 ggsave(filename = "../Result/notame_results/Figuras/figure_union_1.png", plot = figure_uninonone,
-       width = 175, height = 240, units = "mm", dpi = 300, scale = 2.5)
+       width = 200, height = 240, units = "mm", dpi = 300, scale = 2.5)
 
 
 #HCA
