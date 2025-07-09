@@ -1,5 +1,5 @@
-Stadistical Factory design of LC-MS/MS profiling and characterization of caffeoylquinic acids isomers
-in Ilex guayusa under different collection sites, plant age, and
+LC-MS/MS profiling and characterization of caffeoylquinic acids isomers
+in *Ilex guayusa* under different collection sites, plant age, and
 sunlight exposure
 ================
 Thomas G.
@@ -7,13 +7,13 @@ Thomas G.
 
 - [Introduction](#introduction)
 - [Before to start](#before-to-start)
-- [workflow](#workflow)
+- [Workflow](#workflow)
 - [Load libraries](#load-libraries)
 - [Data loading and preparation](#data-loading-and-preparation)
 - [Statistical modeling (GLM)](#statistical-modeling-glm)
   - [Validation of assumptions](#validation-of-assumptions)
-- [Análisis post-hoc](#análisis-post-hoc)
-- [Visualización de resultados](#visualización-de-resultados)
+- [Post-hoc analysis](#post-hoc-analysis)
+- [Viewing results](#viewing-results)
   - [Grafico chakra](#grafico-chakra)
   - [Grafico de las edades](#grafico-de-las-edades)
 - [Grafico interaccion de la
@@ -40,7 +40,7 @@ analysis of the data collected in the quantification of 5-CQA in the
 HPLC equipment with UV-vis detector, the data were compiled in a data
 file (.xlsx) for the analysis.
 
-## workflow
+## Workflow
 
 The package and other dependency packages were installed as a first step
 for the analysis.
@@ -48,41 +48,40 @@ for the analysis.
 ## Load libraries
 
 ``` r
-# --- CONFIGURACIÓN INICIAL ---
-# Este chunk realiza la configuración inicial: limpia el entorno, carga paquetes y establece opciones
+# --- INITIAL SETUP ---
+# This chunk performs initial setup: cleans up the environment, loads packages, and sets options
 
-# Limpiar entorno (opcional pero recomendado para comenzar desde cero)
+# Clean up the environment (optional but recommended for starting from scratch)
 #rm(list = ls())
 
-# Cargar librerías con conflicto controlado
-library(readr)     # Lectura eficiente de datos
-library(ggplot2)   # Visualizaciones avanzadas
-library(emmeans)   # Medias marginales y comparaciones post-hoc
-library(multcomp)  # Letras de significancia
-library(multcompView) # Visualización de comparaciones múltiples
-library(knitr)     # Reportes reproducibles y tablas formateadas
-library(tibble)    # Dataframes mejorados
-library(car)       # Análisis de varianza y supuestos
-library(DHARMa)    # Diagnóstico de modelos mixtos
-library(dplyr)     # Manipulación de datos (cargar al final para evitar conflictos)
+# Load libraries with controlled conflicts
+library(readr) # Efficient data reading
+library(ggplot2) # Advanced visualizations
+library(emmeans) # Marginal means and post-hoc comparisons
+library(multcomp) # Significance scores
+library(multcompView) # Visualizing multiple comparisons
+library(knitr) # Reproducible reports and formatted tables
+library(tibble) # Enhanced data frames
+library(car) # Analysis of variance and assumptions
+library(DHARMa) # Mixed model diagnostics
+library(dplyr) # Data manipulation (load last to avoid conflicts)
 ```
 
 ## Data loading and preparation
 
 ``` r
-# --- 1. CARGA Y PREPARACIÓN DE DATOS ---
-# Este chunk carga los datos crudos y realiza la transformación inicial
+# --- 1. DATA LOADING AND PREPARATION ---
+# This chunk loads the raw data and performs the initial transformation
 
-# Leer datos desde texto
 hplc <- readr::read_csv("../Data/Data_to_cuantification/Factorial_simple_2.csv")
 
-# Procesamiento inicial de datos
+# Initial data processing
 hplc <- hplc %>%
   mutate(
     Chakra = factor(Chakra),
-    Age = factor(Edades, levels = c("T0", "T1", "T2")), # Factor ordenado
+    Age = factor(Edades, levels = c("T0", "T1", "T2")), # Ordered factor
     Light = factor(Condiciones_luz),
-    logCGA = log(CGA)  # Transformación logarítmica
+    logCGA = log(CGA)  # Logarithmic transformation
   ) %>%
   dplyr::select(Chakra, Age, Light, CGA, logCGA)
 
@@ -95,13 +94,13 @@ hplc <- hplc %>%
 ## Statistical modeling (GLM)
 
 ``` r
-# --- 2. AJUSTE DEL MODELO LINEAL GENERALIZADO (GLM) --->
-# Modelo final elegido basado en análisis previo: Gamma con enlace log para logCGA
+# --- 2. FITTING THE GENERALIZED LINEAR MODEL (GLM) --->
+# Final model chosen based on previous analysis: Gamma with log link for logCGA
 modelo_final_glm <- glm(logCGA ~ Chakra + Age * Light,
                         family = Gamma(link = "log"),
                         data = hplc)
 
-# Resumen del modelo ajustado
+# Summary of the fitted model
  print(summary(modelo_final_glm))
 ```
 
@@ -132,7 +131,7 @@ modelo_final_glm <- glm(logCGA ~ Chakra + Age * Light,
     ## Number of Fisher Scoring iterations: 6
 
 ``` r
-# Obtener tabla ANOVA del GLM (Tipo III)
+# Get ANOVA table from GLM (Type III)
  anova_results_glm <- car::Anova(modelo_final_glm, type = "III") # Especificar paquete car::
  print(anova_results_glm)
 ```
@@ -151,10 +150,10 @@ modelo_final_glm <- glm(logCGA ~ Chakra + Age * Light,
 ### Validation of assumptions
 
 ``` r
-# --- 3. EVALUACIÓN DE SUPUESTOS DEL MODELO FINAL ---
+# --- 3. EVALUATION OF FINAL MODEL ASSUMPTIONS ---
 
-# Simular residuos escalados cuantílicos
-# Usar tryCatch para manejar posibles errores en la simulación misma
+# Simulate quantile-scaled residuals
+# Use tryCatch to handle possible errors in the simulation itself
 simulationOutput <- tryCatch({
   DHARMa::simulateResiduals(fittedModel = modelo_final_glm, plot = FALSE) # Usar DHARMa:: explícitamente
 }, error = function(e) {
@@ -162,19 +161,19 @@ simulationOutput <- tryCatch({
   return(NULL)
 })
 
-# --- 3.1. Tabla Resumen de Supuestos ---
-# Inicializar variables como character para evitar errores de tipo
+# --- 3.1. Summary Table of Assumptions ---
+# Initialize variables as character to avoid type errors
 ks_stat_chr <- ks_pval_chr <- disp_stat_chr <- disp_pval_chr <- out_stat_chr <- out_pval_chr <- r2_chr <- "N/A"
-ks_interp <- disp_interp <- out_interp <- r2_interp <- "N/A" # Inicializar interpretación para R2 también
+ks_interp <- disp_interp <- out_interp <- r2_interp <- "N/A" # Initialize interpretation for R2 as well
 
-# Proceder solo si la simulación DHARMa fue exitosa
+# Proceed only if the DHARMa simulation was successful
 if (!is.null(simulationOutput)) {
-  # Realizar pruebas específicas usando DHARMa:: explícitamente
+  # Perform specific tests using DHARMa:: explicitly
   test_ks <- DHARMa::testUniformity(simulationOutput, plot = FALSE)
   test_disp <- DHARMa::testDispersion(simulationOutput, plot = FALSE)
   test_out <- DHARMa::testOutliers(simulationOutput, plot = FALSE)
 
-  # Extraer valores numéricos primero
+  # Extract numeric values ​​first
   ks_stat_val <- ifelse(is.numeric(test_ks$statistic), round(test_ks$statistic, 3), NA_real_)
   ks_pval_val <- ifelse(is.numeric(test_ks$p.value), round(test_ks$p.value, 3), NA_real_)
   disp_stat_raw <- test_disp$statistic # Puede no ser un único número
@@ -182,34 +181,34 @@ if (!is.null(simulationOutput)) {
   out_stat_raw <- test_out$statistic # Puede no ser un único número
   out_pval_val <- ifelse(is.numeric(test_out$p.value), round(test_out$p.value, 3), NA_real_)
 
-  # Convertir a character para la tabla, manejando NA y posibles vectores
+  # Convert to character for table, handling NA and possible vectors
   ks_stat_chr <- ifelse(is.na(ks_stat_val), "NA", as.character(ks_stat_val))
   ks_pval_chr <- ifelse(is.na(ks_pval_val), "NA", as.character(ks_pval_val))
   disp_stat_chr <- ifelse(is.numeric(disp_stat_raw),
                           ifelse(is.na(disp_stat_raw), "NA", as.character(round(disp_stat_raw, 3))),
-                          paste(disp_stat_raw, collapse=";")) # Maneja si no es numérico
+                          paste(disp_stat_raw, collapse=";")) # Handle if not numeric
   disp_pval_chr <- ifelse(is.na(disp_pval_val), "NA", as.character(disp_pval_val))
   out_stat_chr <- ifelse(is.numeric(out_stat_raw),
                          ifelse(is.na(out_stat_raw), "NA", as.character(round(out_stat_raw, 3))),
-                         paste(out_stat_raw, collapse=";")) # Maneja si no es numérico
+                         paste(out_stat_raw, collapse=";")) # Handle if not numeric
   out_pval_chr <- ifelse(is.na(out_pval_val), "NA", as.character(out_pval_val))
 
-  # Interpretaciones basadas en valores numéricos antes de convertir a character
-  ks_interp <- ifelse(is.na(ks_pval_val), "Error en test KS", ifelse(ks_pval_val < 0.05, "Desviación significativa", "OK"))
-  disp_interp <- ifelse(is.na(disp_pval_val), "Error en test Dispersion", ifelse(disp_pval_val < 0.05, "Dispersión no constante/incorrecta", "OK"))
-  out_interp <- ifelse(is.na(out_pval_val), "Error en test Outliers", ifelse(out_pval_val < 0.05, "Presencia de Outliers", "OK"))
+  # Interpretations based on numeric values before converting to character
+  ks_interp <- ifelse(is.na(ks_pval_val), "Error in KS test", ifelse(ks_pval_val < 0.05, "Significant deviation", "OK"))
+  disp_interp <- ifelse(is.na(disp_pval_val), "Error in Dispersion test", ifelse(disp_pval_val < 0.05, "Non-constant/incorrect dispersion", "OK"))
+  out_interp <- ifelse(is.na(out_pval_val), "Error in Outliers test", ifelse(out_pval_val < 0.05, "Presence of Outliers", "OK"))
 
 } else {
-   # Asegurar tipo character si la simulación falló
+   # Ensure character type if simulation failed
    ks_stat_chr <- ks_pval_chr <- disp_stat_chr <- disp_pval_chr <- out_stat_chr <- out_pval_chr <- "Error Sim."
    # Also set interpretations to error state
-   ks_interp <- disp_interp <- out_interp <- "Error en simulación DHARMa"
+   ks_interp <- disp_interp <- out_interp <- "Error in DHARMa simulation"
 }
 
 # --- Calcular Pseudo R-cuadrado ---
 pseudo_r2_results <- tryCatch({
     r2_perf <- performance::r2(modelo_final_glm)
-    # Elegir un R2, por ejemplo Nagelkerke o Tjur si disponible
+    # Choose an R2, for example Nagelkerke or Tjur if available
     if ("R2_Nagelkerke" %in% names(r2_perf)) {
         val <- round(r2_perf$R2_Nagelkerke, 3)
         method <- "Nagelkerke"
@@ -217,44 +216,44 @@ pseudo_r2_results <- tryCatch({
         val <- round(r2_perf$R2_Tjur, 3)
         method <- "Tjur"
     } else {
-         # Fallback a la primera R2 disponible si las preferidas no están
+         # Fallback to the first available R2 if the preferred ones are not available
          val <- round(r2_perf[[1]], 3)
          method <- names(r2_perf)[1]
     }
-    # Asegurarse que val es numérico antes de convertir
+    # Make sure val is numeric before converting
     val_chr <- ifelse(is.na(val), "NA", as.character(val))
     list(value = val_chr, method = method, interp = "OK")
 }, error = function(e) {
-    message("Error calculando Pseudo R2: ", e$message)
+    message("Error calculating Pseudo R2: ", e$message)
     list(value = "Error Calc.", method = "performance::r2", interp = "Error")
 })
 r2_chr <- pseudo_r2_results$value
 r2_method <- pseudo_r2_results$method
 r2_interp <- pseudo_r2_results$interp
-r2_pval_chr <- "NA" # R2 no tiene p-valor
+r2_pval_chr <- "NA" # R2 has no p-value
 
 
-# --- Calcular VIF ---
-# Nota: VIF se calcula sobre un modelo aditivo para evaluar colinealidad entre predictores principales
+# --- Calculate VIF ---
+# Note: VIF is calculated on an additive model to assess collinearity between main predictors
 vif_values <- tryCatch({
-  # Usar un modelo solo con efectos principales para VIF
+  # Use a main effects-only model for VIF
   model_additive_for_vif <- update(modelo_final_glm, . ~ Chakra + Age + Light)
   vif_raw <- car::vif(model_additive_for_vif) # Especificar paquete car::
-  # Asegurarse que vif_raw es un vector o matriz nombrada
-  if (is.matrix(vif_raw)) { # Si hay múltiples columnas de VIF (e.g., gvif)
+ # Ensure vif_raw is a named vector or matrix
+  if (is.matrix(vif_raw)) { # If there are multiple VIF columns (e.g., gvif)
      vif_text <- paste(rownames(vif_raw), apply(round(vif_raw, 2), 1, paste, collapse=":"), sep=": ", collapse="; ")
-  } else if (is.vector(vif_raw) && !is.null(names(vif_raw))) { # Vector nombrado estándar
+  } else if (is.vector(vif_raw) && !is.null(names(vif_raw))) { # standard named sector
      vif_text <- paste(names(vif_raw), round(vif_raw, 2), sep=": ", collapse="; ")
   } else {
-     vif_text <- "Formato VIF no esperado"
+     vif_text <- "Unexpected VIF format"
   }
   vif_text
 }, error = function(e) {
-  message("Error al calcular VIF: ", e$message)
-  "Error al calcular VIF"
+  message("Error calculating VIF: ", e$message)
+  "Error calculating VIF"
 })
-vif_interp <- ifelse(grepl("Error|no esperado", vif_values), "Error/No calculado", "VIFs bajos (<5) indican baja colinealidad")
-vif_pval_chr <- "NA" # VIF no tiene p-valor
+vif_interp <- ifelse(grepl("Error|unexpected", vif_values), "Error/Not calculated", "Low VIFs (<5) indicate low collinearity")
+vif_pval_chr <- "NA" # VIF has no p-value
 
 
 # --- Crear la tabla de supuestos ---
@@ -273,27 +272,27 @@ assumption_summary <- tibble::tribble(
 # Mostrar tabla de supuestos
 
 # Usar kable para formatear la tabla
-print(knitr::kable(assumption_summary, caption = "Tabla de Supuestos del Modelo GLM Final (logCGA ~ Chakra + Age * Light, Gamma(log))"))
+print(knitr::kable(assumption_summary, caption = "Final GLM Model Assumptions Table (logCGA ~ Chakra + Age * Light, Gamma(log))"))
 ```
 
     ## 
     ## 
-    ## Table: Tabla de Supuestos del Modelo GLM Final (logCGA ~ Chakra + Age * Light, Gamma(log))
+    ## Table: Final GLM Model Assumptions Table (logCGA ~ Chakra + Age * Light, Gamma(log))
     ## 
-    ## |Supuesto                         |Método                       |Estadístico/Valor                       |p-valor |Interpretación                            |
-    ## |:--------------------------------|:----------------------------|:---------------------------------------|:-------|:-----------------------------------------|
-    ## |Waste Distribution               |DHARMa KS test               |0.121                                   |0.407   |OK                                        |
-    ## |Homoscedasticity/Dispersion      |DHARMa testDispersion        |1.215                                   |0.408   |OK                                        |
-    ## |Outliers                         |DHARMa testOutliers          |0                                       |1       |OK                                        |
-    ## |Multicollinearity (additive VIF) |car::vif                     |Chakra: 1:2:1; Age: 1:2:1; Light: 1:1:1 |NA      |VIFs bajos (<5) indican baja colinealidad |
-    ## |Pseudo R-squared                 |performance::r2 (Nagelkerke) |0.907                                   |NA      |OK                                        |
+    ## |Supuesto                         |Método                       |Estadístico/Valor                       |p-valor |Interpretación                          |
+    ## |:--------------------------------|:----------------------------|:---------------------------------------|:-------|:---------------------------------------|
+    ## |Waste Distribution               |DHARMa KS test               |0.121                                   |0.407   |OK                                      |
+    ## |Homoscedasticity/Dispersion      |DHARMa testDispersion        |1.215                                   |0.408   |OK                                      |
+    ## |Outliers                         |DHARMa testOutliers          |0                                       |1       |OK                                      |
+    ## |Multicollinearity (additive VIF) |car::vif                     |Chakra: 1:2:1; Age: 1:2:1; Light: 1:1:1 |NA      |Low VIFs (<5) indicate low collinearity |
+    ## |Pseudo R-squared                 |performance::r2 (Nagelkerke) |0.907                                   |NA      |OK                                      |
 
 ``` r
-# --- 3.2. Gráficos de Diagnóstico DHARMa ---
-# Esencial revisar estos gráficos visualmente además de la tabla
-# Proceder solo si la simulación fue exitosa
+# --- 3.2. DHARMa Diagnostic Charts ---
+# It is essential to review these charts visually in addition to the table
+# Proceed only if the simulation was successful
 if (!is.null(simulationOutput)) {
-    plot(simulationOutput) # Esto genera el QQ-plot y el de Residuos vs Predichos
+    plot(simulationOutput) # This generates the QQ-plot and the Residuals vs Predicted plot
 } else {
     message("DHARMa graphics cannot be generated due to a simulation error..")
 }
@@ -301,14 +300,14 @@ if (!is.null(simulationOutput)) {
 
 ![](Statistical_factory_design_files/figure-gfm/DHARMa-1.png)<!-- -->
 
-## Análisis post-hoc
+## Post-hoc analysis
 
 ``` r
-# --- 4. ANÁLISIS POST-HOC ---
-# Usar emmeans sobre el modelo final para obtener medias y comparaciones
-# Nota: Las comparaciones se hacen sobre la escala del predictor (log-link en este caso)
+# --- 4. POST-HOC ANALYSIS ---
+# Use Emmeans on the final model to obtain means and comparisons
+# Note: Comparisons are made on the predictor scale (log-link in this case)
 
-# --- 4.1. Efecto Principal: Chakra --->
+# --- 4.1. Main Effect: Chakra --->
 emm_chakra <- emmeans::emmeans(modelo_final_glm, ~ Chakra) # Usar emmeans::
 pairs_chakra <- pairs(emm_chakra, adjust = "tukey") # Ajuste Tukey para comparaciones
 cld_chakra <- multcomp::cld(emm_chakra, Letters = letters, alpha = 0.05, adjust = "tukey") # Usar multcomp::
@@ -350,8 +349,8 @@ cld_chakra <- multcomp::cld(emm_chakra, Letters = letters, alpha = 0.05, adjust 
     ##       But we also did not show them to be the same.
 
 ``` r
-# --- 4.2. Efecto Principal: Age --->
-# Advertencia: Interpretar con cautela debido a la interacción significativa
+# --- 4.2. Main Effect: Age --->
+# Warning: Interpret with caution due to significant interaction
 emm_age <- emmeans::emmeans(modelo_final_glm, ~ Age)
 pairs_age <- pairs(emm_age, adjust = "tukey")
 cld_age <- multcomp::cld(emm_age, Letters = letters, alpha = 0.05, adjust = "tukey")
@@ -393,8 +392,8 @@ cld_age <- multcomp::cld(emm_age, Letters = letters, alpha = 0.05, adjust = "tuk
     ##       But we also did not show them to be the same.
 
 ``` r
-# --- 4.3. Interacción: Age * Light --->
-# Comparar Age dentro de cada nivel de Light
+# --- 4.3. Interaction: Age * Light --->
+# Compare Age within each Light level
 emm_age_light <- emmeans::emmeans(modelo_final_glm, ~ Age | Light)
 pairs_age_light <- pairs(emm_age_light, adjust = "sidak") # Sidak para 3 comps por grupo
 cld_age_light <- multcomp::cld(emm_age_light, Letters = letters, alpha = 0.05, adjust = "sidak")
@@ -450,7 +449,7 @@ cld_age_light <- multcomp::cld(emm_age_light, Letters = letters, alpha = 0.05, a
     ##       But we also did not show them to be the same.
 
 ``` r
-# O Comparar Light dentro de cada nivel de Age
+# Or Compare Light within each Age level
 emm_light_age <- emmeans::emmeans(modelo_final_glm, ~ Light | Age)
 pairs_light_age <- pairs(emm_light_age, adjust = "sidak") # Ajuste para 3 comparaciones
  print("Comparisons for Light within Age:")
@@ -488,7 +487,7 @@ pairs_light_age <- pairs(emm_light_age, adjust = "sidak") # Ajuste para 3 compar
           ))
 ```
 
-## Visualización de resultados
+## Viewing results
 
 ``` r
 # --- 5. VISUALIZACIÓN DE RESULTADOS ---
