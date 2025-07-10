@@ -2199,3 +2199,307 @@ INFO [2025-06-23 15:16:58] Starting homoscedasticity tests.
 INFO [2025-06-23 15:16:58] Homoscedasticity tests performed.
 INFO [2025-06-23 15:17:00] Starting homoscedasticity tests.
 INFO [2025-06-23 15:17:00] Homoscedasticity tests performed.
+INFO [2025-07-10 15:01:16] Starting logging
+INFO [2025-07-10 15:01:17] Corner detected correctly at row 11, column I
+INFO [2025-07-10 15:01:17] 
+Extracting sample information from rows 1 to 11 and columns J to DE
+INFO [2025-07-10 15:01:17] Replacing spaces in sample information column names with underscores (_)
+INFO [2025-07-10 15:01:17] Naming the last column of sample information "Datafile"
+INFO [2025-07-10 15:01:17] 
+Extracting feature information from rows 12 to 647 and columns A to I
+INFO [2025-07-10 15:01:17] Creating Split column from Column, Ion_Mode
+INFO [2025-07-10 15:01:17] Feature_ID column not found, creating feature IDs
+INFO [2025-07-10 15:01:17] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:01:17] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:01:17] Creating feature IDs from Split, m/z and retention time
+INFO [2025-07-10 15:01:17] Replacing dots (.) in feature information column names with underscores (_)
+INFO [2025-07-10 15:01:17] 
+Extracting feature abundances from rows 12 to 647 and columns J to DE
+INFO [2025-07-10 15:01:17] 
+Checking sample information
+INFO [2025-07-10 15:01:17] Checking that feature abundances only contain numeric values
+INFO [2025-07-10 15:01:17] 
+Checking feature information
+INFO [2025-07-10 15:01:17] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-07-10 15:01:17] Checking that m/z and retention time values are reasonable
+INFO [2025-07-10 15:01:17] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:01:17] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:01:17] 
+Checking feature information
+INFO [2025-07-10 15:01:17] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-07-10 15:01:17] Checking that feature abundances only contain numeric values
+INFO [2025-07-10 15:01:17] Setting row and column names of exprs based on feature and pheno data
+INFO [2025-07-10 15:01:19] 
+0% of features flagged for low detection rate
+INFO [2025-07-10 15:01:19] 
+Starting drift correction at 2025-07-10 15:01:19.112086
+INFO [2025-07-10 15:01:19] Drift correction performed at 2025-07-10 15:01:19.938707
+INFO [2025-07-10 15:01:20] Inspecting drift correction results 2025-07-10 15:01:20.298272
+INFO [2025-07-10 15:01:21] Drift correction results inspected at 2025-07-10 15:01:21.200993
+INFO [2025-07-10 15:01:21] 
+Drift correction results inspected, report:
+Drift_corrected: 100%
+INFO [2025-07-10 15:01:21] 
+0% of features flagged for low quality
+INFO [2025-07-10 15:01:22] 
+0% of features flagged as contaminants
+INFO [2025-07-10 15:01:23] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:01:23] 
+Starting feature clustering at 2025-07-10 15:01:23.403054
+INFO [2025-07-10 15:01:23] Finding connections between features in RP_NEG
+INFO [2025-07-10 15:01:29] Found 43 connections in RP_NEG
+INFO [2025-07-10 15:01:29] Found 43 connections
+INFO [2025-07-10 15:01:29] Found 26 clusters of 2 or more features, clustering finished at 2025-07-10 15:01:29.375565
+INFO [2025-07-10 15:01:29] Clusters compressed, left with 608 features
+INFO [2025-07-10 15:01:30] 
+Starting random forest imputation at 2025-07-10 15:01:30.462156
+INFO [2025-07-10 15:01:38] Out-of-bag error in random forest imputation: 0.022
+INFO [2025-07-10 15:01:38] Random forest imputation finished at 2025-07-10 15:01:38.530032 
+
+INFO [2025-07-10 15:01:38] 
+Starting random forest imputation at 2025-07-10 15:01:38.577652
+INFO [2025-07-10 15:01:38] Out-of-bag error in random forest imputation: 0
+INFO [2025-07-10 15:01:38] Random forest imputation finished at 2025-07-10 15:01:38.599165 
+
+INFO [2025-07-10 15:01:39] Starting PQN normalization
+INFO [2025-07-10 15:01:39] Using median of qc samples as reference spectrum
+INFO [2025-07-10 15:01:43] Starting homoscedasticity tests.
+INFO [2025-07-10 15:01:45] Homoscedasticity tests performed.
+INFO [2025-07-10 15:01:45] Starting to compute fold changes.
+INFO [2025-07-10 15:01:45] Fold changes computed.
+INFO [2025-07-10 15:01:45] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:01:46] t-tests performed.
+INFO [2025-07-10 15:01:47] Starting homoscedasticity tests.
+INFO [2025-07-10 15:01:49] Homoscedasticity tests performed.
+INFO [2025-07-10 15:01:49] Starting to compute fold changes.
+INFO [2025-07-10 15:01:49] Fold changes computed.
+INFO [2025-07-10 15:01:49] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:01:50] t-tests performed.
+INFO [2025-07-10 15:01:50] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:01:50] t-tests performed.
+INFO [2025-07-10 15:01:51] Starting homoscedasticity tests.
+INFO [2025-07-10 15:01:51] Homoscedasticity tests performed.
+INFO [2025-07-10 15:01:53] Starting homoscedasticity tests.
+INFO [2025-07-10 15:01:53] Homoscedasticity tests performed.
+INFO [2025-07-10 15:06:18] Starting logging
+INFO [2025-07-10 15:06:18] Corner detected correctly at row 11, column I
+INFO [2025-07-10 15:06:18] 
+Extracting sample information from rows 1 to 11 and columns J to DE
+INFO [2025-07-10 15:06:18] Replacing spaces in sample information column names with underscores (_)
+INFO [2025-07-10 15:06:18] Naming the last column of sample information "Datafile"
+INFO [2025-07-10 15:06:18] 
+Extracting feature information from rows 12 to 647 and columns A to I
+INFO [2025-07-10 15:06:18] Creating Split column from Column, Ion_Mode
+INFO [2025-07-10 15:06:18] Feature_ID column not found, creating feature IDs
+INFO [2025-07-10 15:06:18] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:06:18] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:06:18] Creating feature IDs from Split, m/z and retention time
+INFO [2025-07-10 15:06:18] Replacing dots (.) in feature information column names with underscores (_)
+INFO [2025-07-10 15:06:18] 
+Extracting feature abundances from rows 12 to 647 and columns J to DE
+INFO [2025-07-10 15:06:18] 
+Checking sample information
+INFO [2025-07-10 15:06:18] Checking that feature abundances only contain numeric values
+INFO [2025-07-10 15:06:18] 
+Checking feature information
+INFO [2025-07-10 15:06:18] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-07-10 15:06:18] Checking that m/z and retention time values are reasonable
+INFO [2025-07-10 15:06:18] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:06:18] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:06:18] 
+Checking feature information
+INFO [2025-07-10 15:06:18] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-07-10 15:06:18] Checking that feature abundances only contain numeric values
+INFO [2025-07-10 15:06:18] Setting row and column names of exprs based on feature and pheno data
+INFO [2025-07-10 15:06:20] 
+0% of features flagged for low detection rate
+INFO [2025-07-10 15:06:20] 
+Starting drift correction at 2025-07-10 15:06:20.25197
+INFO [2025-07-10 15:06:21] Drift correction performed at 2025-07-10 15:06:21.039195
+INFO [2025-07-10 15:06:21] Inspecting drift correction results 2025-07-10 15:06:21.399668
+INFO [2025-07-10 15:06:22] Drift correction results inspected at 2025-07-10 15:06:22.034487
+INFO [2025-07-10 15:06:22] 
+Drift correction results inspected, report:
+Drift_corrected: 100%
+INFO [2025-07-10 15:06:22] 
+0% of features flagged for low quality
+INFO [2025-07-10 15:06:23] 
+0% of features flagged as contaminants
+INFO [2025-07-10 15:06:24] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:06:24] 
+Starting feature clustering at 2025-07-10 15:06:24.369382
+INFO [2025-07-10 15:06:24] Finding connections between features in RP_NEG
+INFO [2025-07-10 15:06:30] Found 43 connections in RP_NEG
+INFO [2025-07-10 15:06:30] Found 43 connections
+INFO [2025-07-10 15:06:30] Found 26 clusters of 2 or more features, clustering finished at 2025-07-10 15:06:30.735332
+INFO [2025-07-10 15:06:30] Clusters compressed, left with 608 features
+INFO [2025-07-10 15:06:31] 
+Starting random forest imputation at 2025-07-10 15:06:31.798335
+INFO [2025-07-10 15:06:39] Out-of-bag error in random forest imputation: 0.022
+INFO [2025-07-10 15:06:39] Random forest imputation finished at 2025-07-10 15:06:39.518751 
+
+INFO [2025-07-10 15:06:39] 
+Starting random forest imputation at 2025-07-10 15:06:39.566222
+INFO [2025-07-10 15:06:39] Out-of-bag error in random forest imputation: 0
+INFO [2025-07-10 15:06:39] Random forest imputation finished at 2025-07-10 15:06:39.586283 
+
+INFO [2025-07-10 15:06:40] Starting PQN normalization
+INFO [2025-07-10 15:06:40] Using median of qc samples as reference spectrum
+INFO [2025-07-10 15:06:42] Starting homoscedasticity tests.
+INFO [2025-07-10 15:06:44] Homoscedasticity tests performed.
+INFO [2025-07-10 15:06:44] Starting to compute fold changes.
+INFO [2025-07-10 15:06:44] Fold changes computed.
+INFO [2025-07-10 15:06:44] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:06:44] t-tests performed.
+INFO [2025-07-10 15:06:46] Starting homoscedasticity tests.
+INFO [2025-07-10 15:06:47] Homoscedasticity tests performed.
+INFO [2025-07-10 15:06:48] Starting to compute fold changes.
+INFO [2025-07-10 15:06:48] Fold changes computed.
+INFO [2025-07-10 15:06:48] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:06:48] t-tests performed.
+INFO [2025-07-10 15:06:48] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:06:49] t-tests performed.
+INFO [2025-07-10 15:06:50] Starting homoscedasticity tests.
+INFO [2025-07-10 15:06:50] Homoscedasticity tests performed.
+INFO [2025-07-10 15:06:52] Starting homoscedasticity tests.
+INFO [2025-07-10 15:06:52] Homoscedasticity tests performed.
+INFO [2025-07-10 15:18:22] Finished analysis. Thu Jul 10 15:18:22 2025
+Session info:
+
+INFO [2025-07-10 15:18:22] R version 4.5.1 (2025-06-13 ucrt)
+INFO [2025-07-10 15:18:22] Platform: x86_64-w64-mingw32/x64
+INFO [2025-07-10 15:18:22] Running under: Windows 11 x64 (build 26100)
+INFO [2025-07-10 15:18:22] 
+INFO [2025-07-10 15:18:22] Matrix products: default
+INFO [2025-07-10 15:18:22]   LAPACK version 3.12.1
+INFO [2025-07-10 15:18:22] 
+INFO [2025-07-10 15:18:22] locale:
+INFO [2025-07-10 15:18:22] [1] LC_COLLATE=Spanish_Ecuador.utf8  LC_CTYPE=Spanish_Ecuador.utf8    LC_MONETARY=Spanish_Ecuador.utf8 LC_NUMERIC=C                    
+INFO [2025-07-10 15:18:22] [5] LC_TIME=Spanish_Ecuador.utf8    
+INFO [2025-07-10 15:18:22] 
+INFO [2025-07-10 15:18:22] time zone: America/Guayaquil
+INFO [2025-07-10 15:18:22] tzcode source: internal
+INFO [2025-07-10 15:18:22] 
+INFO [2025-07-10 15:18:22] attached base packages:
+INFO [2025-07-10 15:18:22]  [1] grid      stats4    parallel  stats     graphics  grDevices utils     datasets  methods   base     
+INFO [2025-07-10 15:18:22] 
+INFO [2025-07-10 15:18:22] other attached packages:
+INFO [2025-07-10 15:18:22]  [1] colorRamp2_0.0.1            ComplexHeatmap_2.24.0       gt_1.0.0                    agricolae_1.3-7             pmp_1.20.0                 
+INFO [2025-07-10 15:18:22]  [6] SummarizedExperiment_1.38.1 GenomicRanges_1.60.0        GenomeInfoDb_1.44.0         IRanges_2.42.0              S4Vectors_0.46.0           
+INFO [2025-07-10 15:18:22] [11] MatrixGenerics_1.20.0       matrixStats_1.5.0           Hmisc_5.2-3                 hexbin_1.28.5               ggrepel_0.9.6              
+INFO [2025-07-10 15:18:22] [16] batchCorr_0.2.5             notame_0.3.1                futile.logger_1.4.3         Biobase_2.68.0              BiocGenerics_0.54.0        
+INFO [2025-07-10 15:18:22] [21] generics_0.1.4              gplots_3.2.0                here_1.0.1                  patchwork_1.3.1             lubridate_1.9.4            
+INFO [2025-07-10 15:18:22] [26] forcats_1.0.0               stringr_1.5.1               purrr_1.0.4                 tidyr_1.3.1                 tidyverse_2.0.0            
+INFO [2025-07-10 15:18:22] [31] magrittr_2.0.3              doParallel_1.0.17           iterators_1.0.14            foreach_1.5.2               shiny_1.11.0               
+INFO [2025-07-10 15:18:22] [36] devtools_2.4.5              usethis_3.1.0               gridExtra_2.3               ggtext_0.1.2                cowplot_1.1.3              
+INFO [2025-07-10 15:18:22] [41] dplyr_1.1.4                 DHARMa_0.4.7                car_3.1-3                   carData_3.0-5               tibble_3.3.0               
+INFO [2025-07-10 15:18:22] [46] knitr_1.50                  multcompView_0.1-10         multcomp_1.4-28             TH.data_1.1-3               MASS_7.3-65                
+INFO [2025-07-10 15:18:22] [51] survival_3.8-3              mvtnorm_1.3-3               emmeans_1.11.1              ggplot2_3.5.2               readr_2.1.5                
+INFO [2025-07-10 15:18:22] 
+INFO [2025-07-10 15:18:22] loaded via a namespace (and not attached):
+INFO [2025-07-10 15:18:22]   [1] fs_1.6.6                bitops_1.0-9            httr_1.4.7              RColorBrewer_1.1-3      insight_1.3.1           ggsci_3.2.0            
+INFO [2025-07-10 15:18:22]   [7] profvis_0.4.0           tools_4.5.1             doRNG_1.8.6.2           backports_1.5.0         R6_2.6.1                mgcv_1.9-3             
+INFO [2025-07-10 15:18:22]  [13] GetoptLong_1.0.5        urlchecker_1.0.1        litedown_0.7            withr_3.0.2             cli_3.6.5               textshaping_1.0.1      
+INFO [2025-07-10 15:18:22]  [19] performance_0.14.0      formatR_1.14            sandwich_3.1-1          labeling_0.4.3          sass_0.4.10             randomForest_4.7-1.2   
+INFO [2025-07-10 15:18:22]  [25] askpass_1.2.1           systemfonts_1.2.3       commonmark_1.9.5        foreign_0.8-90          sessioninfo_1.2.3       itertools_0.1-3        
+INFO [2025-07-10 15:18:22]  [31] rstudioapi_0.17.1       impute_1.82.0           shape_1.4.6.1           gtools_3.9.5            vroom_1.6.5             zip_2.3.3              
+INFO [2025-07-10 15:18:22]  [37] Matrix_1.7-3            abind_1.4-8             juicyjuice_0.1.0        lifecycle_1.0.4         yaml_2.3.10             SparseArray_1.8.0      
+INFO [2025-07-10 15:18:22]  [43] qgam_2.0.0              promises_1.3.3          crayon_1.5.3            miniUI_0.1.2            lattice_0.22-7          pillar_1.10.2          
+INFO [2025-07-10 15:18:22]  [49] rjson_0.2.23            boot_1.3-31             estimability_1.5.1      codetools_0.2-20        glue_1.8.0              V8_6.0.4               
+INFO [2025-07-10 15:18:22]  [55] pcaMethods_2.0.0        data.table_1.17.6       remotes_2.5.0           vctrs_0.6.5             png_0.1-8               Rdpack_2.6.4           
+INFO [2025-07-10 15:18:22]  [61] gtable_0.3.6            cachem_1.1.0            xfun_0.52               openxlsx_4.2.8          rbibutils_2.3           S4Arrays_1.8.1         
+INFO [2025-07-10 15:18:22]  [67] mime_0.13               reformulas_0.4.1        ellipsis_0.3.2          gap_1.6                 nlme_3.1-168            bit64_4.6.0-1          
+INFO [2025-07-10 15:18:22]  [73] rprojroot_2.0.4         KernSmooth_2.23-26      AlgDesign_1.2.1.2       rpart_4.1.24            colorspace_2.1-1        nnet_7.3-20            
+INFO [2025-07-10 15:18:22]  [79] tidyselect_1.2.1        bit_4.6.0               compiler_4.5.1          curl_6.4.0              htmlTable_2.4.3         xml2_1.3.8             
+INFO [2025-07-10 15:18:22]  [85] DelayedArray_0.34.1     checkmate_2.3.2         scales_1.4.0            caTools_1.18.3          digest_0.6.37           minqa_1.2.8            
+INFO [2025-07-10 15:18:22]  [91] rmarkdown_2.29          XVector_0.48.0          htmltools_0.5.8.1       pkgconfig_2.0.3         base64enc_0.1-3         lme4_1.1-37            
+INFO [2025-07-10 15:18:22]  [97] fastmap_1.2.0           rlang_1.1.6             GlobalOptions_0.1.2     htmlwidgets_1.6.4       UCSC.utils_1.4.0        farver_2.1.2           
+INFO [2025-07-10 15:18:22] [103] zoo_1.8-14              jsonlite_2.0.0          Formula_1.2-5           GenomeInfoDbData_1.2.14 credentials_2.0.2       Rcpp_1.0.14            
+INFO [2025-07-10 15:18:22] [109] stringi_1.8.7           plyr_1.8.9              pkgbuild_1.4.8          splines_4.5.1           gridtext_0.1.5          circlize_0.4.16        
+INFO [2025-07-10 15:18:22] [115] hms_1.1.3               igraph_2.1.4            ggpubr_0.6.0            ggsignif_0.6.4          markdown_2.0            rngtools_1.5.2         
+INFO [2025-07-10 15:18:22] [121] reshape2_1.4.4          pkgload_1.4.0           futile.options_1.0.1    evaluate_1.0.4          lambda.r_1.2.4          nloptr_2.2.1           
+INFO [2025-07-10 15:18:22] [127] tzdb_0.5.0              missForest_1.5          httpuv_1.6.16           openssl_2.3.3           clue_0.3-66             broom_1.0.8            
+INFO [2025-07-10 15:18:22] [133] gap.datasets_0.0.6      xtable_1.8-4            rstatix_0.7.2           later_1.4.2             viridisLite_0.4.2       ragg_1.4.0             
+INFO [2025-07-10 15:18:22] [139] gert_2.1.5              memoise_2.0.1           cluster_2.1.8.1         timechange_0.3.0       
+INFO [2025-07-10 15:18:30] Starting logging
+INFO [2025-07-10 15:18:31] Corner detected correctly at row 11, column I
+INFO [2025-07-10 15:18:31] 
+Extracting sample information from rows 1 to 11 and columns J to DE
+INFO [2025-07-10 15:18:31] Replacing spaces in sample information column names with underscores (_)
+INFO [2025-07-10 15:18:31] Naming the last column of sample information "Datafile"
+INFO [2025-07-10 15:18:31] 
+Extracting feature information from rows 12 to 647 and columns A to I
+INFO [2025-07-10 15:18:31] Creating Split column from Column, Ion_Mode
+INFO [2025-07-10 15:18:31] Feature_ID column not found, creating feature IDs
+INFO [2025-07-10 15:18:31] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:18:31] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:18:31] Creating feature IDs from Split, m/z and retention time
+INFO [2025-07-10 15:18:31] Replacing dots (.) in feature information column names with underscores (_)
+INFO [2025-07-10 15:18:31] 
+Extracting feature abundances from rows 12 to 647 and columns J to DE
+INFO [2025-07-10 15:18:31] 
+Checking sample information
+INFO [2025-07-10 15:18:31] Checking that feature abundances only contain numeric values
+INFO [2025-07-10 15:18:31] 
+Checking feature information
+INFO [2025-07-10 15:18:31] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-07-10 15:18:31] Checking that m/z and retention time values are reasonable
+INFO [2025-07-10 15:18:31] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:18:31] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:18:31] 
+Checking feature information
+INFO [2025-07-10 15:18:31] Checking that feature IDs are unique and not stored as numbers
+INFO [2025-07-10 15:18:31] Checking that feature abundances only contain numeric values
+INFO [2025-07-10 15:18:31] Setting row and column names of exprs based on feature and pheno data
+INFO [2025-07-10 15:18:33] 
+0% of features flagged for low detection rate
+INFO [2025-07-10 15:18:33] 
+Starting drift correction at 2025-07-10 15:18:33.140448
+INFO [2025-07-10 15:18:33] Drift correction performed at 2025-07-10 15:18:33.8524
+INFO [2025-07-10 15:18:34] Inspecting drift correction results 2025-07-10 15:18:34.205139
+INFO [2025-07-10 15:18:34] Drift correction results inspected at 2025-07-10 15:18:34.8253
+INFO [2025-07-10 15:18:34] 
+Drift correction results inspected, report:
+Drift_corrected: 100%
+INFO [2025-07-10 15:18:34] 
+0% of features flagged for low quality
+INFO [2025-07-10 15:18:35] 
+0% of features flagged as contaminants
+INFO [2025-07-10 15:18:36] Identified m/z column row_m_z and retention time column row_retention_time
+INFO [2025-07-10 15:18:36] 
+Starting feature clustering at 2025-07-10 15:18:36.902871
+INFO [2025-07-10 15:18:36] Finding connections between features in RP_NEG
+INFO [2025-07-10 15:18:42] Found 43 connections in RP_NEG
+INFO [2025-07-10 15:18:42] Found 43 connections
+INFO [2025-07-10 15:18:42] Found 26 clusters of 2 or more features, clustering finished at 2025-07-10 15:18:42.702541
+INFO [2025-07-10 15:18:42] Clusters compressed, left with 608 features
+INFO [2025-07-10 15:18:43] 
+Starting random forest imputation at 2025-07-10 15:18:43.697851
+INFO [2025-07-10 15:18:51] Out-of-bag error in random forest imputation: 0.022
+INFO [2025-07-10 15:18:51] Random forest imputation finished at 2025-07-10 15:18:51.364886 
+
+INFO [2025-07-10 15:18:51] 
+Starting random forest imputation at 2025-07-10 15:18:51.368434
+INFO [2025-07-10 15:18:51] Out-of-bag error in random forest imputation: 0
+INFO [2025-07-10 15:18:51] Random forest imputation finished at 2025-07-10 15:18:51.38455 
+
+INFO [2025-07-10 15:18:52] Starting PQN normalization
+INFO [2025-07-10 15:18:52] Using median of qc samples as reference spectrum
+INFO [2025-07-10 15:18:56] Starting homoscedasticity tests.
+INFO [2025-07-10 15:18:58] Homoscedasticity tests performed.
+INFO [2025-07-10 15:18:58] Starting to compute fold changes.
+INFO [2025-07-10 15:18:58] Fold changes computed.
+INFO [2025-07-10 15:18:58] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:18:58] t-tests performed.
+INFO [2025-07-10 15:19:00] Starting homoscedasticity tests.
+INFO [2025-07-10 15:19:01] Homoscedasticity tests performed.
+INFO [2025-07-10 15:19:01] Starting to compute fold changes.
+INFO [2025-07-10 15:19:01] Fold changes computed.
+INFO [2025-07-10 15:19:01] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:19:02] t-tests performed.
+INFO [2025-07-10 15:19:02] Starting t-tests for Light & Shade
+INFO [2025-07-10 15:19:02] t-tests performed.
+INFO [2025-07-10 15:19:03] Starting homoscedasticity tests.
+INFO [2025-07-10 15:19:03] Homoscedasticity tests performed.
+INFO [2025-07-10 15:19:04] Starting homoscedasticity tests.
+INFO [2025-07-10 15:19:04] Homoscedasticity tests performed.

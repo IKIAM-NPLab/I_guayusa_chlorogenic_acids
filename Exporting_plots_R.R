@@ -137,7 +137,7 @@ ggsave(filename = "../Result/notame_results/Figuras/figure_s3.png", plot = figur
 
 
 # Figure matrix
-figure_s4_p <- arrangeGrob(figure_s1a,
+figure_s4 <- arrangeGrob(figure_s1a,
                            figure_s1b,
                            figure_s1c,
                            figure_s1d,

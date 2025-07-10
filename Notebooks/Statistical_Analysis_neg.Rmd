@@ -832,7 +832,7 @@ tk_table <- tk_table |>
     columns = 2:4) |>
     tab_source_note(source_note = "Note: Different lowercase letter within the 
                   same row indicates significant differences based on Tukey's 
-                  multiple comparisons (p-value < 0.05, n = 3). '-' represents 
+                  multiple comparisons (p-value < 0.05). 'dot' represents 
                   features with unequal variance according to Levene's test. 
                   'ns' are the features that do not have statistical 
                   differences (p-value > 0.05) according to the ANOVA test.") |>
@@ -992,10 +992,11 @@ tk_table_spl <- tk_table_spl |>
     columns = 2:4) |>
     tab_source_note(source_note = "Note: Different lowercase letter within the 
                   same row indicates significant differences based on Tukey's 
-                  multiple comparisons (p-value < 0.05, n = 18). '-' represents 
+                  multiple comparisons (p-value < 0.05). '-' represents 
                   features with unequal variance according to Levene's test. 
                   'ns' are the features that do not have statistical 
-                  differences (p-value > 0.05) according to the ANOVA test.") |>
+                  differences (p-value > 0.05) according to the ANOVA test, 'NA' 
+                  means there was no difference") |>
   tab_options(table.width = px(750)) |>
   as_raw_html()
 tk_table_spl
@@ -1140,77 +1141,6 @@ figure_1a
 ggsave("../Result/notame_results//Figuras/PCA/PDF/figure_1a.pdf", width = 8, height = 6, units = "in", dpi = "print")
 ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1a.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
-### Light loading
-
-Extracting the light sub_QC data.
-
-```{r}
-# Drop factor samples
-no_sample_pca_light_n <- glog_set[, glog_set$Analysis_group != "Sample"]
-no_sample_pca_light_n <- glog_set[, glog_set$Analysis_group != "QC"]
-pData(no_sample_pca_light_n) <- droplevels(pData(no_sample_pca_light_n))
-# Extracting data
-g_data_n <- no_sample_pca_light_n[, no_sample_pca_light_n$Light_Factor != "Other enviroment factors"]
-pData(g_data_n) <- droplevels(pData(g_data_n))
-# Extracting feature height table
-g_peakheight_n <- exprs(g_data_n)
-# Extracting Phenotipic data
-g_phenodata_n <- g_data_n@phenoData@data
-```
-
-Transposing feature table and preparing the PCA data.
-
-```{r}
-# Transposing feature height table
-g_n_transp_table  <- t(g_peakheight_n)
-# Centering and Scaling features
-g_n_pca <- prcomp(g_n_transp_table, center = TRUE, scale. = FALSE)
-```
-
-```{r}
-g_n_loadings <- g_n_pca$rotation %>%          # Extract loadings
-  data.frame(Feature_ID = rownames(.))    # New column with feat name
-```
-
-Creating an artificial table with feature names and a compound column (with identified metabolites).
-
-```{r}
-# Creating a new small table with the annotated compounds
-g_n_compouds <- left_join(meta_table, g_n_loadings)
-# Plotting results
-figure_s1g <- ggplot(g_n_loadings, aes(PC1, PC2)) +
-  geom_point(alpha = 0.2) +
-  theme_classic() + 
-  geom_point(data = g_n_compouds,
-             aes(shape = meta_table$Identification_level,
-                 color = meta_table$Identification_level),
-             size = 2) +
-  labs(shape = 'Identification level',
-       color = 'Identification level') +
-  ggrepel::geom_label_repel(data = g_n_compouds,
-                            aes(label = meta_table$Metabolite),
-                            box.padding = 0.22,
-                            label.padding = 0.22,
-                            label.r = 0.3,
-                            cex = 3.5,
-                            max.overlaps = 7,
-                            min.segment.length = 0) +
-  guides(x=guide_axis(title = "PC1 (32.40 %)"),
-         y=guide_axis(title = "PC2 (21.22 %)")) +
-  theme(legend.position = c(0.89, 0.9),
-        legend.background = element_rect(fill = "white", color = "black")) +
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  geom_vline(xintercept = 0, linetype = "longdash", colour="gray") +
-  geom_hline(yintercept = 0, linetype = "longdash", colour="gray") +
-  ggsci::scale_color_aaas()
-figure_s1g
-```
-
-```{r}
-ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1g.pdf", width = 8, height = 6, units = "in", dpi = "print")
-ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1g.png", width = 8, height = 6, units = "in", dpi = "print")
-```
 
 ### Age factor PCA
 
@@ -1264,78 +1194,6 @@ figure_1b
 # Save Plot
 ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1b.pdf", width = 8, height = 6, units = "in", dpi = "print")
 ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1b.png", width = 8, height = 6, units = "in", dpi = "print")
-```
-### Age loading
-
-Extracting the age sub_QC data.
-
-```{r}
-# Drop factor samples
-no_sample_pca_age_n <- glog_set[, glog_set$Analysis_group != "Sample"]
-no_sample_pca_age_n <- glog_set[, glog_set$Analysis_group != "QC"]
-pData(no_sample_pca_age_n) <- droplevels(pData(no_sample_pca_age_n))
-# Extracting data
-h_data_n <- no_sample_pca_age_n[, no_sample_pca_age_n$Age_Factor != "Other enviroment factors"]
-pData(h_data_n) <- droplevels(pData(h_data_n))
-# Extracting feature height table
-h_peakheight_n <- exprs(h_data_n)
-# Extracting Phenotipic data
-h_phenodata_n <- h_data_n@phenoData@data
-```
-
-Transposing feature table and preparing the PCA data.
-
-```{r}
-# Transposing feature height table
-h_n_transp_table  <- t(h_peakheight_n)
-# Centering and Scaling features
-h_n_pca <- prcomp(h_n_transp_table, center = TRUE, scale. = FALSE)
-```
-
-
-```{r}
-h_n_loadings <- h_n_pca$rotation %>%          # Extract loadings
-  data.frame(Feature_ID = rownames(.))    # New column with feat name
-```
-
-Creating an artificial table with feature names and a compound column (with identified metabolites).
-
-```{r}
-# Creating a new small table with the annotated compounds
-h_n_compouds <- left_join(meta_table, h_n_loadings)
-# Plotting results
-figure_s1h <- ggplot(h_n_loadings, aes(PC1, PC2)) +
-  geom_point(alpha = 0.2) +
-  theme_classic() + 
-  geom_point(data = h_n_compouds,
-             aes(shape = meta_table$Identification_level,
-                 color = meta_table$Identification_level),
-             size = 2) +
-  labs(shape = 'Identification level',
-       color = 'Identification level') +
-  ggrepel::geom_label_repel(data = h_n_compouds,
-                            aes(label = meta_table$Metabolite),
-                            box.padding = 0.22,
-                            label.padding = 0.22,
-                            label.r = 0.3,
-                            cex = 3.5,
-                            max.overlaps = 7,
-                            min.segment.length = 0) +
-  guides(x=guide_axis(title = "PC1 (32.40 %)"),
-         y=guide_axis(title = "PC2 (21.22 %)")) +
-  theme(legend.position = c(0.89, 0.9),
-        legend.background = element_rect(fill = "white", color = "black")) +
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  geom_vline(xintercept = 0, linetype = "longdash", colour="gray") +
-  geom_hline(yintercept = 0, linetype = "longdash", colour="gray") +
-  ggsci::scale_color_aaas()
-figure_s1h
-```
-
-```{r}
-ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1h.pdf", width = 8, height = 6, units = "in", dpi = "print")
-ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1h.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
 ### Location factor PCA
@@ -1392,79 +1250,7 @@ ggsave("../Result/notame_results/Figuras/PCA/PDF/figure_1c.pdf", width = 8, heig
 ggsave("../Result/notame_results/Figuras/PCA/PNG/figure_1c.png", width = 8, height = 6, units = "in", dpi = "print")
 ```
 
-### location loading
-
-Extracting the location sub_QC data.
-
-```{r}
-# Drop factor samples
-no_sample_pca_n <- glog_set[, glog_set$Analysis_group != "Sample"]
-no_sample_pca_n <- glog_set[, glog_set$Analysis_group != "QC"]
-pData(no_sample_pca_n) <- droplevels(pData(no_sample_pca_n))
-# Extracting "Alto Pano" (B) data
-f_data_n <- no_sample_pca_n[, no_sample_pca_n$Location_Factor != "Other enviroment factors"]
-pData(f_data_n) <- droplevels(pData(f_data_n))
-# Extracting feature height table
-f_peakheight_n <- exprs(f_data_n)
-# Extracting Phenotipic data
-f_phenodata_n <- f_data_n@phenoData@data
-```
-
-Transposing feature table and preparing the PCA data.
-
-```{r}
-# Transposing feature height table
-f_transp_table_n  <- t(f_peakheight_n)
-# Centering and Scaling features
-f_n_pca <- prcomp(f_transp_table_n, center = TRUE, scale. = FALSE)
-```
-
-```{r}
-f_n_loadings <- f_n_pca$rotation %>%          # Extract loadings
-  data.frame(Feature_ID = rownames(.))    # New column with feat name
-```
-
-Creating an artificial table with feature names and a compound column (with identified metabolites).
-
-```{r}
-# Creating a new small table with the annotated compounds
-f_n_compouds <- left_join(meta_table, f_n_loadings)
-# Plotting results
-figure_s1f <- ggplot(f_n_loadings, aes(PC1, PC2)) +
-  geom_point(alpha = 0.2) +
-  theme_classic() + 
-  geom_point(data = f_n_compouds,
-             aes(shape = meta_table$Identification_level,
-                 color = meta_table$Identification_level),
-             size = 2) +
-  labs(shape = 'Identification level',
-       color = 'Identification level') +
-  ggrepel::geom_label_repel(data = f_n_compouds,
-                            aes(label = meta_table$Metabolite),
-                            box.padding = 0.22,
-                            label.padding = 0.22,
-                            label.r = 0.3,
-                            cex = 3.5,
-                            max.overlaps = 7,
-                            min.segment.length = 0) +
-  guides(x=guide_axis(title = "PC1 (32.40 %)"),
-         y=guide_axis(title = "PC2 (21.22 %)")) +
-  theme(legend.position = c(0.89, 0.9),
-        legend.background = element_rect(fill = "white", color = "black")) +
-  theme(panel.grid = element_blank(), 
-        panel.border = element_rect(fill= "transparent")) +
-  geom_vline(xintercept = 0, linetype = "longdash", colour="gray") +
-  geom_hline(yintercept = 0, linetype = "longdash", colour="gray") +
-  ggsci::scale_color_aaas()
-figure_s1f
-```
-
-```{r}
-ggsave("../Result/notame_results/Figuras/Loads/PDF/figure_s1f.pdf", width = 8, height = 6, units = "in", dpi = "print")
-ggsave("../Result/notame_results/Figuras/Loads/PNG/figure_s1f.png", width = 8, height = 6, units = "in", dpi = "print")
-```
-
-Plotting a loading PCA result.
+### Plotting a loading PCA result.
 
 ```{r}
 loadings <- ei_pca$rotation %>%           # Extract loadings
