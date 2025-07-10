@@ -1,6 +1,6 @@
-LC-MS/MS profiling and characterization of caffeoylquinic acids isomers
-in *Ilex guayusa* under different collection sites, plant age, and
-sunlight exposure
+Statistical Factory desing: LC-MS/MS profiling and characterization of
+caffeoylquinic acids isomers in *Ilex guayusa* under different
+collection sites, plant age, and sunlight exposure
 ================
 Thomas G.
 2025-05-27
@@ -14,12 +14,12 @@ Thomas G.
   - [Validation of assumptions](#validation-of-assumptions)
 - [Post-hoc analysis](#post-hoc-analysis)
 - [Viewing results](#viewing-results)
-  - [Grafico chakra](#grafico-chakra)
-  - [Grafico de las edades](#grafico-de-las-edades)
-- [Grafico interaccion de la
-  luz:edad](#grafico-interaccion-de-la-luzedad)
+  - [Chakra chart](#chakra-chart)
+  - [Age chart](#age-chart)
+- [Light interaction graph: age](#light-interaction-graph-age)
 - [Light:Age - T-test](#lightage---t-test)
-- [Limpieza opcional final](#limpieza-opcional-final)
+- [SUMMARY TABLE](#summary-table)
+- [Optional final cleaning](#optional-final-cleaning)
 
 ## Introduction
 
@@ -205,7 +205,7 @@ if (!is.null(simulationOutput)) {
    ks_interp <- disp_interp <- out_interp <- "Error in DHARMa simulation"
 }
 
-# --- Calcular Pseudo R-cuadrado ---
+# --- Calculate Pseudo R-squared ---
 pseudo_r2_results <- tryCatch({
     r2_perf <- performance::r2(modelo_final_glm)
     # Choose an R2, for example Nagelkerke or Tjur if available
@@ -256,7 +256,7 @@ vif_interp <- ifelse(grepl("Error|unexpected", vif_values), "Error/Not calculate
 vif_pval_chr <- "NA" # VIF has no p-value
 
 
-# --- Crear la tabla de supuestos ---
+# --- Create the assumptions table ---
 assumption_summary <- tibble::tribble(
   ~Supuesto, ~Método, ~`Estadístico/Valor`, ~`p-valor`, ~Interpretación,
   # --- DHARMa tests ---
@@ -269,9 +269,9 @@ assumption_summary <- tibble::tribble(
   "Pseudo R-squared", paste0("performance::r2 (", r2_method, ")"), r2_chr, r2_pval_chr, r2_interp
 )
 
-# Mostrar tabla de supuestos
+# Show assumptions table
 
-# Usar kable para formatear la tabla
+# Use kable to format the table
 print(knitr::kable(assumption_summary, caption = "Final GLM Model Assumptions Table (logCGA ~ Chakra + Age * Light, Gamma(log))"))
 ```
 
@@ -490,88 +490,98 @@ pairs_light_age <- pairs(emm_light_age, adjust = "sidak") # Ajuste para 3 compar
 ## Viewing results
 
 ``` r
-# --- 5. VISUALIZACIÓN DE RESULTADOS ---
-# Este chunk genera las figuras finales para el informe
+# --- 5. RESULTS VISUALIZATION ---
+# This chunk generates the final figures for the report.
 
-# --- 5.1. Preparación para Gráficos --->
-# *** FUNCIÓN AUXILIAR CORREGIDA (sin cambios respecto a la versión anterior) ***
+# --- 5.1. Preparation for Charts --->
+# *** AUXILIARY FUNCTION CORRECTED (no changes from the previous version) ***
 add_cld_letters <- function(summary_df, cld_object, group_vars) {
-  # Convertir el objeto cld (puede ser emmGrid) a data.frame
+  # Convert the cld object (can be emmGrid) to data.frame
   if (!is.data.frame(cld_object)) {
     cld_df <- as.data.frame(cld_object)
   } else {
     cld_df <- cld_object
   }
 
-  # Verificar que las columnas de agrupación y .group existen en cld_df
+ # Verify that the grouping and .group columns exist in cld_df
   required_cols <- c(group_vars, ".group")
   if (!all(required_cols %in% names(cld_df))) {
-    stop("Las columnas requeridas (", paste(required_cols, collapse=", "), ") no se encuentran todas en el objeto cld.")
+    stop("The required columns (", paste(required_cols, collapse=", "), ") Not all of them are in the cld object.")
   }
 
-  # Limpiar espacios en blanco de las letras de grupo
+ # Clean whitespace from group letters
   cld_df$.group <- trimws(cld_df$.group)
 
-  # Seleccionar solo las columnas necesarias de cld_df
-  # Usar all_of() para seguridad si group_vars viene de una variable externa
+# Select only the necessary columns from cld_df
+# Use all_of() for security if group_vars comes from an external variable
   cld_subset <- cld_df %>%
-                  dplyr::select(all_of(group_vars), .group) # Usar dplyr::
+                  dplyr::select(all_of(group_vars), .group) # Use dplyr::
 
-  # Asegurarse que las columnas de unión sean del mismo tipo (factor es seguro)
+# Ensure that the joining columns are of the same type (factor is safe)
   for (var in group_vars) {
       if (var %in% names(summary_df) && var %in% names(cld_subset)) {
           summary_df[[var]] <- as.factor(summary_df[[var]])
           cld_subset[[var]] <- as.factor(cld_subset[[var]])
       } else {
-          stop(paste("La columna de agrupación", var, "no existe en summary_df o cld_subset."))
+          stop(paste("The grouping column", var, "does not exist in summary_df or cld_subset."))
       }
   }
 
-  # Unir los datos resumen con las letras CLD
-  dplyr::left_join(summary_df, cld_subset, by = group_vars) # Usar dplyr::
+  # Match the summary data with the letters CLD
+  dplyr::left_join(summary_df, cld_subset, by = group_vars) # Use dplyr::
 }
 ```
 
-### Grafico chakra
+### Chakra chart
 
 ``` r
-# --- 5.2. Gráfico: Efecto Principal Chakra --->
+# --- 5.2. Chart: Chakra Main Effect --->
 
-# Calcular directamente sobre hplc agrupado solo por Chakra
-summary_chakra_direct <- hplc %>% dplyr::group_by(Chakra) %>% # Usar dplyr::
-    # Usar dplyr::summarise explícitamente
-    dplyr::summarise(mean_CGA = mean(CGA), sd_CGA = sd(CGA), N=n(), se_CGA = sd_CGA/sqrt(N), .groups='drop')
+# Calculate the values per Chakra
+summary_chakra_direct <- hplc %>%
+  dplyr::group_by(Chakra) %>%
+  dplyr::summarise(
+    mean_CGA = mean(CGA),
+    sd_CGA = sd(CGA),
+    N = n(),
+    se_CGA = sd_CGA / sqrt(N),
+    .groups = 'drop'
+  )
 
-# Añadir letras usando la función CORREGIDA
+# Add letters with the add_cld_letters function
 summary_chakra_plot <- add_cld_letters(summary_chakra_direct, cld_chakra, "Chakra")
 
-# Verificar el resultado antes de graficar
-#print(summary_chakra_plot)
+# Define custom colors
+colores_manual <- c("#4457A5FF", "#B24422FF", "#4F9D4EFF")
 
-# Definir colores manualmente (cambia los valores hex a tus colores deseados)
-colores_manual <- c("#4457A5FF", "#B24422FF","#4F9D4EFF")
-
-# Definir etiquetas personalizadas para el eje X (en el orden de tus niveles de Chakra)
+# Define custom X-axis labels
 etiquetas_x <- c("Talag", "Alto Pano", "Alto Tena")
 
+# Reassign factor levels to remove the word "Chakra"
+summary_chakra_plot$Chakra <- factor(
+  summary_chakra_plot$Chakra,
+  levels = unique(summary_chakra_plot$Chakra),
+  labels = etiquetas_x
+)
+
+# Generate the graph
 plot_chakra <- ggplot2::ggplot(summary_chakra_plot, ggplot2::aes(x = Chakra, y = mean_CGA, fill = Chakra)) +
   ggplot2::geom_col(position = ggplot2::position_dodge(width = 0.9), color = "black") +
   ggplot2::geom_errorbar(ggplot2::aes(ymin = mean_CGA - se_CGA, ymax = mean_CGA + se_CGA),
-                width = 0.2, position = ggplot2::position_dodge(width = 0.9)) +
+                         width = 0.2, position = ggplot2::position_dodge(width = 0.9)) +
   ggplot2::geom_text(ggplot2::aes(label = .group, y = mean_CGA + se_CGA), vjust = -0.5, size = 6) +
-  
-  # Cambiar colores manualmente
   ggplot2::scale_fill_manual(values = colores_manual) +
-  
-  # Cambiar etiquetas del eje X
-  ggplot2::scale_x_discrete(labels = etiquetas_x) +
-  
-  ggplot2::labs(title = "Effect of Chakra on 5-CQA",
-       x = "Chakra",
-       y = "5-CQA Mean ± SD",
-       fill = "Chakra") +
+  ggplot2::labs(
+    title = "Effect of Chakra on 5-CQA",
+    y = "5-CQA Mean (mg/L) ± SD",
+    fill = "Chakra"
+    # x is not defined to not display the word "Chakra"
+  ) +
   ggplot2::theme_minimal(base_size = 14) +
-  ggplot2::theme(legend.position = "none")
+  ggplot2::theme(
+    legend.position = "none",
+    axis.title.x = ggplot2::element_blank()  # Ensures no text appears on the X axis
+  )
 
 print(plot_chakra)
 ```
@@ -586,11 +596,12 @@ print(plot_chakra)
 #       width = 7, height = 6, units = "in", dpi = 300, scale = 1)
 ```
 
-### Grafico de las edades
+### Age chart
 
 ``` r
-# --- 6.1. Gráfico: Efecto Principal Age ---
-# Calcular resumen agrupando solo por Age
+# --- 6.1. Graph: Main Effect of Age ---
+
+# Calculate summary grouping only by Age
 summary_age_direct <- hplc %>%
   dplyr::group_by(Age) %>%
   dplyr::summarise(
@@ -599,18 +610,25 @@ summary_age_direct <- hplc %>%
     N = n(),
     se_CGA = sd_CGA / sqrt(N),
     .groups = 'drop'
-   )
+  )
 
-# Añadir letras CLD (calculadas previamente en cld_age)
-# Nota: CLD se basa en logCGA, el gráfico muestra CGA. Interpretar con cautela.
+# Add CLD letters (previously calculated in cld_age)
 summary_age_plot <- add_cld_letters(summary_age_direct, cld_age, "Age")
 
-# Definir colores manualmente para Age (modifica los códigos hex)
-colores_manual_edad <- c("#E76BF3", "#00B0F6", "#F8766D")  # Debe coincidir con el número de niveles de Age
+# Define custom colors for Age
+colores_manual_edad <- c("#E76BF3", "#00B0F6", "#F8766D")
 
-# Definir etiquetas personalizadas para el eje X (en el orden de tus niveles de Age)
-etiquetas_x_edad <- c("Early", "Medium", "Late")  # Ejemplo en español, modifica según necesites
+# Define custom labels for the X axis
+etiquetas_x_edad <- c("Early", "Medium", "Late")
 
+# Remap Age factor levels with custom labels
+summary_age_plot$Age <- factor(
+  summary_age_plot$Age,
+  levels = unique(summary_age_plot$Age),
+  labels = etiquetas_x_edad
+)
+
+# Generate the graph
 plot_age <- ggplot2::ggplot(
     data = summary_age_plot,
     mapping = ggplot2::aes(x = Age, y = mean_CGA, fill = Age)
@@ -630,17 +648,23 @@ plot_age <- ggplot2::ggplot(
     vjust = -0.5, 
     size = 6
   ) +
-  # Aplicar personalizaciones
-  ggplot2::scale_fill_manual(values = colores_manual_edad) +  # Colores manuales
-  ggplot2::scale_x_discrete(labels = etiquetas_x_edad) +      # Etiquetas personalizadas en eje X
+  # Apply customizations
+  ggplot2::scale_fill_manual(values = colores_manual_edad) +
   ggplot2::labs(
     title = "Effect of Age on 5-CQA",
-    #subtitle = "(Promediado sobre Chakra y Light; CLD basado en logCGA)",
-    x = "Age",
-    y = "5-CQA Mean ± SD"
+    y = "5-CQA Mean (mg/L) ± SD",
+    # x no se especifica para evitar mostrar "Age"
   ) +
-  ggplot2::theme_minimal(base_size = 14)
+  ggplot2::theme_minimal(base_size = 14) +
+  ggplot2::theme(
+    axis.title.x = ggplot2::element_blank()  # Remove text from the X axis
+  )
+.0
+```
 
+    ## [1] 0
+
+``` r
 print(plot_age)
 ```
 
@@ -654,62 +678,66 @@ print(plot_age)
 #       width = 7, height = 6, units = "in", dpi = 300, scale = 1)
 ```
 
-# Grafico interaccion de la luz:edad
+# Light interaction graph: age
 
 ``` r
-# --- 6.3. Gráficos de Interacción Separados por Luz ---
-# *** PASO 1: Calcular medias y SE promediando sobre Chakra ***
-# Agrupar por Age y Light para obtener medias consistentes con las CLD
+# --- 6.3. Interaction Plots by Light Condition (Dark Only) ---
+
+# STEP 1: Compute means and standard errors averaged over Chakra
 summary_stats_avg <- hplc %>%
-  dplyr::group_by(Age, Light) %>% # Usar dplyr::
-  # Usar dplyr::summarise explícitamente
+  dplyr::group_by(Age, Light) %>%
   dplyr::summarise(
-    N = n(), # Nota: N aquí es el número de Chakras * réplicas por Chakra
+    N = n(),  # Note: N = Chakras × Replicates per Chakra
     mean_CGA = mean(CGA, na.rm = TRUE),
     sd_CGA = sd(CGA, na.rm = TRUE),
-    # Calcular SE sobre la media de las medias de Chakra o directamente sobre los datos
-    # Aquí lo calculamos sobre todos los datos dentro de Age:Light
-    se_CGA = sd_CGA / sqrt(N),
-    .groups = 'drop' # Evita que siga agrupado
+    se_CGA = sd_CGA / sqrt(N),  # Standard error of the mean
+    .groups = 'drop'
   )
 
-# *** PASO 2: Añadir letras CLD para la interacción (cld_age_light) ***
-# Necesitamos unir por Age y Light al data frame promediado
+# STEP 2: Add compact letter display (CLD) labels for Age × Light interaction
 summary_interaction_plot_avg <- add_cld_letters(summary_stats_avg, cld_age_light, c("Age", "Light"))
 
-# Usar summary_interaction_plot_avg que ya tiene las medias promediadas sobre Chakra
-# y las letras CLD para Age dentro de cada Light
+# Filter only the dark-light condition (Light == "-")
 summary_dark <- summary_interaction_plot_avg %>% dplyr::filter(Light == "-")
-# Definir colores manuales para Age (oscuros/acordes a la temática de oscuridad)
-colores_oscuridad <- c("#32373AFF", "#32373AFF", "#32373AFF")  # 3 tonos de azul oscuro
 
-# Definir etiquetas personalizadas para el eje X (mismo orden que los niveles de Age)
-etiquetas_x_oscuridad <- c("Early", "Medium", "Late")  # Ejemplo
+# Define custom dark-themed colors for Age groups (uniform tones)
+dark_colors <- c("#32373AFF", "#32373AFF", "#32373AFF")
 
+# Define custom X-axis labels in the same order as factor levels of Age
+x_labels_dark <- c("Early", "Medium", "Late")
+
+# Reassign factor levels of Age using custom labels (removes the word "Age" from the axis)
+summary_dark$Age <- factor(
+  summary_dark$Age,
+  levels = unique(summary_dark$Age),
+  labels = x_labels_dark
+)
+
+# Build the bar plot
 plot_interaction_dark <- ggplot2::ggplot(
   summary_dark, 
-  ggplot2::aes(x = Age, y = mean_CGA, fill = Age)  # Mapear fill a Age para usar colores manuales
+  ggplot2::aes(x = Age, y = mean_CGA, fill = Age)
 ) +
-  ggplot2::geom_col(color = "black", show.legend = FALSE) +  # Quitamos el fill fijo
+  ggplot2::geom_col(color = "black", show.legend = FALSE) +  # Hide legend
   ggplot2::geom_errorbar(
     ggplot2::aes(ymin = mean_CGA - se_CGA, ymax = mean_CGA + se_CGA),
     width = 0.2
   ) +
   ggplot2::geom_text(
     ggplot2::aes(label = .group, y = mean_CGA + se_CGA),
-    vjust = -0.5, 
+    vjust = -0.5,
     size = 6
   ) +
-  # Aplicar personalizaciones
-  ggplot2::scale_fill_manual(values = colores_oscuridad) +  # Colores manuales
-  ggplot2::scale_x_discrete(labels = etiquetas_x_oscuridad) +  # Etiquetas personalizadas
+  ggplot2::scale_fill_manual(values = dark_colors) +
   ggplot2::labs(
-    title = "Age Effect in Shadow",
-    #subtitle = "Medias ± Error Estándar (promediado sobre Chakra)",
-    x = "Age",
-    y = "5-CQA Mean ± SD"
+    title = "Age Effect under Shade Conditions",
+    y = "5-CQA Mean (mg/L) ± SD"
+    # No X-axis title specified
   ) +
   ggplot2::theme_minimal(base_size = 14) +
+  ggplot2::theme(
+    axis.title.x = ggplot2::element_blank()  # Remove X-axis title ("Age")
+  ) +
   ggplot2::coord_cartesian(
     ylim = c(0, max(summary_interaction_plot_avg$mean_CGA + 
                     summary_interaction_plot_avg$se_CGA) * 1.1)
@@ -729,41 +757,52 @@ print(plot_interaction_dark)
 ```
 
 ``` r
-# Gráfico para Light = "+" (Luz)
-summary_light_cond <- summary_interaction_plot_avg %>% dplyr::filter(Light == "+")
+# --- Plot for Light Condition = "+" (Sunlight Exposure) ---
 
-# Definir colores manuales para Age (tonos claros/acordes a la temática de luz)
-colores_luz <- c("#F5BC5CFF", "#F5BC5CFF", "#F5BC5CFF")
+# Filter data for Light = "+"
+summary_light_cond <- summary_interaction_plot_avg %>%
+  dplyr::filter(Light == "+")
 
-# Definir etiquetas personalizadas para el eje X (mismo orden que los niveles de Age)
-etiquetas_x_luz <- c("Early", "Medium", "Late")  # Ejemplo en español
+# Define manual light-themed colors for Age groups
+light_colors <- c("#F5BC5CFF", "#F5BC5CFF", "#F5BC5CFF")
 
+# Define custom X-axis labels in the same order as Age factor levels
+x_labels_light <- c("Early", "Medium", "Late")
+
+# Reassign factor levels of Age using custom labels (removes the word "Age" from the axis)
+summary_light_cond$Age <- factor(
+  summary_light_cond$Age,
+  levels = unique(summary_light_cond$Age),
+  labels = x_labels_light
+)
+
+# Build the bar plot
 plot_interaction_light <- ggplot2::ggplot(
   summary_light_cond, 
-  ggplot2::aes(x = Age, y = mean_CGA, fill = Age)  # Mapear fill a Age
+  ggplot2::aes(x = Age, y = mean_CGA, fill = Age)
 ) +
-  ggplot2::geom_col(color = "black", show.legend = FALSE) +  # Quitamos el fill fijo
+  ggplot2::geom_col(color = "black", show.legend = FALSE) +  # Hide legend
   ggplot2::geom_errorbar(
     ggplot2::aes(ymin = mean_CGA - se_CGA, ymax = mean_CGA + se_CGA),
     width = 0.2
   ) +
   ggplot2::geom_text(
     ggplot2::aes(label = .group, y = mean_CGA + se_CGA),
-    vjust = -0.5, 
+    vjust = -0.5,
     size = 6
   ) +
-  # Aplicar personalizaciones
-  ggplot2::scale_fill_manual(values = colores_luz) +  # Colores manuales
-  ggplot2::scale_x_discrete(labels = etiquetas_x_luz) +  # Etiquetas personalizadas
+  ggplot2::scale_fill_manual(values = light_colors) +  # Apply custom colors
   ggplot2::labs(
-    title = "Age Effect with Light",
-    #subtitle = "Medias ± Error Estándar (promediado sobre Chakra)",
-    x = "Age",
-    y = "5-CQA Mean ± SD"
+    title = "Age Effect under Light Conditions",
+    y = "5-CQA Mean (mg/L) ± SD"
+    # No X-axis title specified
   ) +
   ggplot2::theme_minimal(base_size = 14) +
+  ggplot2::theme(
+    axis.title.x = ggplot2::element_blank()  # Remove X-axis title ("Age")
+  ) +
   ggplot2::coord_cartesian(
-    ylim = c(0, max(summary_interaction_plot_avg$mean_CGA + 
+    ylim = c(0, max(summary_interaction_plot_avg$mean_CGA +
                     summary_interaction_plot_avg$se_CGA) * 1.1)
   )
 
@@ -783,42 +822,42 @@ print(plot_interaction_light)
 # Light:Age - T-test
 
 ``` r
-# --- 6.4. Gráfico de Interacción Combinado con Resultados T-test (Light vs Dark) ---
-# Preparar datos de significancia para el gráfico
-# Usar pairs_light_age calculado previamente
+# --- 6.4. Combined Interaction Plot with T-Test Results (Light vs. Dark) ---
+# Prepare significance data for the plot
+# Use pre-calculated pairs_light_age
 signif_light_age_df <- as.data.frame(pairs_light_age) %>%
   dplyr::mutate(significance = case_when(
            p.value <= 0.001 ~ "***",
            p.value <= 0.01  ~ "**",
            p.value <= 0.05  ~ "*",
-           TRUE             ~ "ns" # No Significativo
+           TRUE             ~ "ns" # Not Significant
          ))
 
-# Necesitamos calcular posiciones Y para los símbolos de significancia
-# Calcularemos la posición Y máxima para cada Age y añadiremos un offset
+# We need to calculate Y positions for the significance symbols
+# We will calculate the maximum Y position for each Age and add an offset
 y_pos_signif <- summary_interaction_plot_avg %>%
   dplyr::group_by(Age) %>%
   dplyr::summarise(max_y = max(mean_CGA + se_CGA), .groups = "drop") %>%
-  dplyr::mutate(y_position = max_y * 1.05) # Poner el texto un 5% por encima del máximo
+  dplyr::mutate(y_position = max_y * 1.05) # Set the text 5% above the maximum
 
-# Unir las posiciones Y con los símbolos de significancia
+# Match the Y positions with the significance symbols
 signif_data_plot <- dplyr::left_join(signif_light_age_df, y_pos_signif, by = "Age")
 
-# Crear el gráfico base (similar al plot_interaction anterior, sin letras CLD)
-# Definir elementos personalizables --------------------------------------------------
-# 1. Colores para las condiciones de Luz (Light)
+# Create the base graph (similar to the plot_interaction above, without the CLD letters)
+# Define customizable elements 
+# 1. Colors for Light conditions
 colores_interaccion <- c(
-  "-" = "#32373AFF",   # Oscuridad (azul oscuro)
-  "+" = "#F5BC5CFF"    # Luz (dorado)
+  "-" = "#32373AFF",   
+  "+" = "#F5BC5CFF"    
 )
 
-# 2. Etiquetas personalizadas para el eje X (Age)
+# 2. Custom labels for the X axis (Age)
 etiquetas_x_interaccion <- c("Early", "Medium", "Late")
 
-# 3. Símbolos de significancia (personaliza si es necesario)
+# 3. Symbols of significance (customize if necessary)
 simbolos_significancia <- c("***" = "***", "**" = "**", "*" = "*", "ns" = "ns")
 
-# Crear el gráfico base ------------------------------------------------------------
+#Create the base graph
 plot_interaction_ttest_base <- ggplot2::ggplot(
   summary_interaction_plot_avg, 
   ggplot2::aes(x = Age, y = mean_CGA, fill = Light)
@@ -832,24 +871,29 @@ plot_interaction_ttest_base <- ggplot2::ggplot(
     width = 0.2, 
     position = ggplot2::position_dodge(width = 0.9)
   ) +
-  # Personalizar colores y etiquetas
+  # Customize colors and labels
   ggplot2::scale_fill_manual(
     values = colores_interaccion,
-    labels = c("-" = "Shadow", "+" = "Light")  # Puedes cambiar estos textos
+    labels = c("-" = "Shade", "+" = "Light") 
   ) +
-  ggplot2::scale_x_discrete(labels = etiquetas_x_interaccion) +  # Etiquetas eje X
+  ggplot2::scale_x_discrete(labels = etiquetas_x_interaccion) +  
   ggplot2::labs(
     title = "Age and Light exposure Interaction (T-test)",
-    #subtitle = "Medias ± Error Estándar (promediado sobre Chakra)",
+    #subtitle = "Means ± Standard Error (averaged over Chakra))",
     x = "Age",
-    y = "5-CQA Mean ± SD",
+    y = "5-CQA Mean (mg/L) ± SD",
     fill = "Light Condition:"
   ) +
   ggplot2::theme_minimal(base_size = 14) +
-  ggplot2::theme(legend.position = "top") +
-  ggplot2::coord_cartesian(ylim = c(0, max(y_pos_signif$y_position) * 1.1))
+  ggplot2::theme(
+    legend.position = "top",
+    axis.title.x = ggplot2::element_blank()  # Remove x-axis label
+  ) +
+  ggplot2::coord_cartesian(
+    ylim = c(0, max(y_pos_signif$y_position) * 1.1)
+  )
 
-# Añadir símbolos de significancia -------------------------------------------------
+# Add symbols of significance 
 plot_interaction_ttest <- plot_interaction_ttest_base +
   ggplot2::geom_text(
     data = signif_data_plot,
@@ -872,15 +916,18 @@ print(plot_interaction_ttest)
 #       width = 9, height = 6, units = "in", dpi = 300, scale = 1)
 ```
 
+# SUMMARY TABLE
+
 ``` r
-# --- 7. TABLA RESUMEN CON MEDIAS, SD, LETRAS CLD Y P-VALORES ---
-# Función para procesar cada factor
+# --- 7. SUMMARY TABLE WITH MEANS, SD, CLD LETTERS, AND P-VALUES ---
+
+# Function to process each factor (e.g., Chakra, Age, Light)
 process_factor <- function(data, model, factor_name, response_var = "CGA") {
-  # Calcular emmeans y CLD
+  # Compute estimated marginal means and compact letter display (CLD)
   emm <- emmeans::emmeans(model, specs = as.formula(paste("~", factor_name)))
   cld <- multcomp::cld(emm, Letters = letters, adjust = "tukey")
   
-  # Calcular estadísticas descriptivas
+  # Compute descriptive statistics: mean and standard deviation
   stats <- data %>%
     dplyr::group_by(!!sym(factor_name)) %>%
     dplyr::summarise(
@@ -888,13 +935,13 @@ process_factor <- function(data, model, factor_name, response_var = "CGA") {
       sd = sd(!!sym(response_var), na.rm = TRUE),
       .groups = 'drop'
     ) %>%
-    dplyr::left_join(cld, by = factor_name)
-  
-  # Obtener p-valor del ANOVA
+    dplyr::left_join(cld, by = factor_name)  # Merge CLD letters
+
+  # Extract p-value from Type III ANOVA
   anova_table <- car::Anova(model, type = 3)
   p_value <- anova_table[factor_name, "Pr(>Chisq)"]
   
-  # Formatear salida
+  # Format output: combine mean, SD, and CLD in one string
   stats %>%
     dplyr::mutate(
       !!sym("Media ± SD") := sprintf(
@@ -905,9 +952,9 @@ process_factor <- function(data, model, factor_name, response_var = "CGA") {
       )
     ) %>%
     dplyr::select(!!sym(factor_name), `Media ± SD`) %>%
-    dplyr::rename(Nivel = !!sym(factor_name)) %>%
+    dplyr::rename(Level = !!sym(factor_name)) %>%
     dplyr::add_row(
-      Nivel = "p-value*", 
+      Level = "p-value*", 
       `Media ± SD` = ifelse(
         p_value < 0.0001, 
         "< 0.0001", 
@@ -915,16 +962,16 @@ process_factor <- function(data, model, factor_name, response_var = "CGA") {
       )
     ) %>%
     dplyr::mutate(Factor = factor_name) %>%
-    dplyr::select(Factor, Nivel, `Media ± SD`)
+    dplyr::select(Factor, Level, `Media ± SD`)
 }
 
-# Aplicar a cada factor
+# Apply the function to each factor of interest
 final_table <- purrr::map_dfr(
   c("Chakra", "Age", "Light"),
   ~ process_factor(hplc, modelo_final_glm, .x)
 )
 
-# Formatear tabla final
+# Format final table: remove repeated factor labels for visual clarity
 final_table <- final_table %>%
   dplyr::mutate(
     Factor = dplyr::case_when(
@@ -934,11 +981,11 @@ final_table <- final_table %>%
   ) %>%
   dplyr::rename(
     ` ` = Factor,
-    `Tratamiento` = Nivel,
-    `Media ± SD (CGA)` = `Media ± SD`
+    `Treatment` = Level,
+    `Mean ± SD (CGA)` = `Media ± SD`
   )
 
-# Mostrar tabla con formato
+# Display formatted table using knitr::kable
 knitr::kable(
   final_table,
   caption = "Summary Table: Means ± SD with Tukey groups and p-values",
@@ -963,10 +1010,10 @@ knitr::kable(
 
 Summary Table: Means ± SD with Tukey groups and p-values
 
-# Limpieza opcional final
+# Optional final cleaning
 
 ``` r
-# --- 6. LIMPIEZA FINAL ---
-# Este chunk opcional puede usarse para eliminar objetos temporales
+# --- 6. FINAL CLEANUP ---
+# This optional chunk can be used to delete temporary objects
 # rm(list = ls(pattern = "^temp_"))
 ```
