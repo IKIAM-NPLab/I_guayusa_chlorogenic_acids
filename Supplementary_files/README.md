@@ -1,6 +1,6 @@
 # Metabolite Comparison using Bar Plots
 
-This complementary seccion contains an R script for visualizing shared and unique precursor ion features across experimental groups from metabolomics data. The analysis was performed for both positive and negative ionization in both adquisitions modes of ions (5-15) using bar plots.
+This complementary seccion contains an R script for visualizing shared and unique precursor ion features across experimental groups from metabolomics data. The analysis was performed for both positive and negative ionization in both adquisitions modes of ions (5 and 15) using bar plots.
 
 ## Description
 
